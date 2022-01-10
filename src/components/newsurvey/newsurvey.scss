@@ -1,0 +1,112 @@
+@import "../../scss/master.scss";
+
+.content-container{
+    padding-bottom: $dpadding*4;
+}
+
+.section-content {
+    margin-bottom: 20px;
+    &.add-question{
+        text-align: center;
+        .MuiPaper-root {
+            padding: $dpadding * 4;
+            button{
+                border: thin solid #009688;
+                color: #009688;
+                span{
+                    @include font-size(28px);
+                    line-height: 1.7;
+                    margin-right: 10px;
+                }
+            }
+
+        }
+    }
+    .MuiFormControl-root{
+        width: $full;
+    }
+}
+
+.section-footer {
+    
+    width: $full;
+    margin-bottom: $dmargin*4;
+    text-align: right;
+    .MuiPaper-root{
+        width: $full;
+        // text-align: right;
+    }
+    button{
+        background-color:#009688;
+        @include align-self(center);
+    }
+}
+
+.icon-with-form {
+    @include flexbox();
+    @include flex-direction(row);
+    // @include align-items(center);
+    height: $full;
+    .icon {
+        height: auto;
+        @include flex(0);
+        @include flexbox();
+        @include align-items(center);
+        background-color: #f8f7f7;
+        padding: $dpadding * 2 $dpadding * 6;
+        border: 1px solid rgba(#ffffff, 1);
+        span {
+            @include font-size(28px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+        }
+    }
+    .form-field-group {
+        height: $full;
+        @include flex(4);
+        padding: $dpadding * 4;
+        @include flexbox();
+        @include flex-direction(column);
+
+
+        label {
+            margin-bottom: 8px;
+            display: inline-block;
+            @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+        }
+        input {
+            margin-bottom: 8px;
+            display: block;
+            @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: normal;
+            text-align: left;
+            line-height: 1.7;
+            width: $full;
+        }
+        textarea {
+            margin-bottom: 8px;
+            display: inline-block;
+            @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: normal;
+            text-align: left;
+            line-height: 1.7;
+            border: thin solid rgba(#000000, 0.3);
+            @include border-radius(4px);
+            resize: none;
+            padding: $dpadding * 2;
+            width: $full;
+        }
+    }
+}

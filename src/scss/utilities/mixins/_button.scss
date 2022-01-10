@@ -1,0 +1,37 @@
+@mixin button($bg: $primary-color-2) {
+  background: $bg;
+  @include transition(background-color, .3s ,ease-in-out);
+  &:hover{
+    background: lighten($bg,5);
+  }
+}
+
+@mixin linkborder($border: $primary-color,$hoverbg:$none) {
+  border-color: $border;
+  background-color: rgba($hoverbg,0);
+  @include transition(border-color, .3s ,ease-in-out);
+  @include transition(background-color, .3s ,ease-in-out);
+  &:hover{
+    border-color: lighten($border,10);
+    background-color: rgba($hoverbg,1);
+  }
+}
+
+@mixin elc_cta_link($backround: $primary-color,$hoverbg:$none) {
+  background-color: $backround;
+  @include transition(background-color, .2s ,ease-in-out);
+  &:hover{
+    background-color: darken($backround,10);
+    color: rgba($theme-bright,1);
+  
+  }
+}
+
+@mixin elc_border-button($border-color: $theme-bright, $bg:none) {
+  border: $border-color $du solid;
+  background: $bg;
+  @include transition(all, .3s ,ease-in-out);
+  &:hover{
+    border: lighten($border-color,10) $du solid;
+  }
+}

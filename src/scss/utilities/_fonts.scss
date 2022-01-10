@@ -1,0 +1,17 @@
+// @import 'https://fast.fonts.net/cssapi/4f9f837d-7aff-4ca2-baad-329b614db55e.css';
+// @import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+// @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Yeseva+One&display=swap');
+
+
+//*****************Font Face*****************/
+$primary-font: 'Lato', sans-serif;
+$primary-font-bold: Avenir Next Cyr W00 Bold;
+$primary-font-demi: Avenir Next Cyr W00 Demi;
+$primary-font-medium:Avenir Next Cyr W00 Medium;
+$font-icon:FontAwesome;
+$title-font:'Yeseva One', cursive;
+//*****************Font Face Ends*****************/
+
+$line-height-para: $fdu - .5;

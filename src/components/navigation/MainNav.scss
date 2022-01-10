@@ -1,0 +1,42 @@
+@import "../../scss/master.scss";
+
+.nav {
+    max-width: $du * 100;
+    width: $full;
+    background-color: $primary-dark;
+    height: $full;
+    position: fixed;
+    h1 {
+        @include font-size(18px);
+        font-family: $primary-font;
+        color: rgba($theme-bright, 1);
+        font-weight: normal;
+        text-align: left;
+        line-height: 1.7;
+        text-transform: uppercase;
+        padding: $dpadding $dpadding*2;
+    }
+    ul{
+        // padding: $null $dpadding*2;
+        li{
+            
+            a{
+                padding: $dpadding*3 $dpadding*2;
+                @include font-size(14px);
+                font-family: $primary-font;
+                color: rgba($theme-bright, 1);
+                font-weight: normal;
+                text-align: left;
+                line-height: 1.7;
+                display: block;
+                
+            }
+            &.active{
+                background-color: rgba($theme-bright, .2);
+                a{
+                    border-left: solid 5px rgba($theme-bright, 1) ;
+                }
+            }
+        }
+    }
+}

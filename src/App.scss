@@ -1,0 +1,21 @@
+@import './scss/master.scss';
+
+
+  .dashboard-container{
+      @include flexbox();
+      @include flex-direction(row);
+      // @include justify-content(space-between);
+      height: $full;
+      .section-header{
+        margin-bottom: $dmargin*6;
+      }
+  }
+  .content{
+    padding: $dpadding*8;
+    @include flex(6);
+    margin-left:$du * 100;
+    @include clearfix();
+    height: $full;
+  }
+
+

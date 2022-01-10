@@ -1,0 +1,65 @@
+@import "../../scss/master.scss";
+
+.MuiOutlinedInput-root{
+    background-color: white;
+}
+
+.scoretrend-row{
+    @include flex(0);
+        @include flexbox();
+        @include align-items(center);
+        margin-bottom: $dmargin*3;
+    .score-month{
+        @include flex(1);
+        @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: normal;
+            text-align: left;
+            line-height: 1.7;
+    }
+    .score-percentage{
+        @include flex(1);
+        @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+    }
+    .score-diff{
+        @include flex(1);
+        @include font-size(14px);
+            font-family: $primary-font;
+            
+            font-weight: normal;
+            text-align: left;
+            line-height: 1.7;
+            &.diff-nutral{
+                color: rgba(#AFAFAF, 1);
+            }
+            &.diff-positive{
+                color: rgba(#6BB437, 1);
+            }
+            &.diff-negative{
+                color: rgba(#FF5959, 1);
+            }
+    }
+    .score-graph{
+        @include flex(4);
+        height: 33px;
+        @include flexbox();
+        .positive{
+            background-color: #6BB437;
+            height: 33px;
+        }
+        .avarage{
+            background-color: #FFD012;
+            height: 33px;
+        }
+        .negative{
+            background-color: #FF5959;
+            height: 33px;
+        }
+    }
+}
