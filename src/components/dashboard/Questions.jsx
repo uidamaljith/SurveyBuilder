@@ -34,8 +34,8 @@ const rows: GridRowsProp[] = [
 ];
 
 const columns: GridColDef[] = [
-  { field: "id", hide: true },
-  { field: "Sl", headerName: "#", flex: 1,maxWidth: 20, },
+  // { field: "id", hide: true },
+  { field: "id", headerName: "#", flex: 1,maxWidth: 20, },
   { field: "Question", headerName: "Question", flex: 1,minWidth: 400, },
   { field: "Metric", headerName: "Primary Metric",flex: 1,minWidth: 150,},
   { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150 },
@@ -47,9 +47,22 @@ const columns: GridColDef[] = [
 
  function QuestionsTable() {
   return (
-    <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
+    <React.Fragment>
+      <div style={{ height: 300, width: '100%' }}>
+        <h3>Survey 3</h3>
+          <DataGrid rows={rows} columns={columns} />
+      </div>
+      <div style={{ height: 300, width: '100%' }}>
+      <h3>Survey 2</h3>
+          <DataGrid rows={rows} columns={columns} />
+      </div>
+      <div style={{ height: 300, width: '100%' }}>
+      <h3>Survey 1</h3>
+          <DataGrid rows={rows} columns={columns} />
+      </div>
+    </React.Fragment>
+
+    
   );
 }
 
