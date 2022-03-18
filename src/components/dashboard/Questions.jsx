@@ -45,21 +45,50 @@ const columns: GridColDef[] = [
   
 ];
 
- function QuestionsTable() {
+ const QuestionsTable = ({data}) => {
+  const [pageSize, setPageSize] = React.useState(5);
+  const row = [];
+   data.map((item,index)=>{
+    if (!row[index]) row[index] = [];
+    item.responses.map((element)=>{
+      //eval('var row' + index+1 + '=[]');
+        row[index].push({ id: element.questionId, 
+          Sl:index+1,
+          Question: element.question, 
+          Metric: element.questionType,
+          Positive:element.totalPositiveScore,
+          Avarage:element.totalNeutralScore,
+          Negative:element.totalNegativeScore,
+          Responses:element.totalResponse,
+          
+        })
+     })
+     console.log(row[index]);
+
+   })
+
+   const renderTempBoxes = () => {
+    let els = [];
+  
+    for (let i = 0; i < data.length; i++) {
+      els.push(<div style={{ height: 400, width: '100%' }}>
+      <h3>Survey{i+1}</h3>
+        <DataGrid 
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20]}
+        rows={row[i]} 
+        columns={columns} 
+        key={i}/>
+      </div>);
+    }
+  
+    return els;
+  };
+
   return (
     <React.Fragment>
-      <div style={{ height: 300, width: '100%' }}>
-        <h3>Survey 3</h3>
-          <DataGrid rows={rows} columns={columns} />
-      </div>
-      <div style={{ height: 300, width: '100%' }}>
-      <h3>Survey 2</h3>
-          <DataGrid rows={rows} columns={columns} />
-      </div>
-      <div style={{ height: 300, width: '100%' }}>
-      <h3>Survey 1</h3>
-          <DataGrid rows={rows} columns={columns} />
-      </div>
+      {renderTempBoxes()}
     </React.Fragment>
 
     

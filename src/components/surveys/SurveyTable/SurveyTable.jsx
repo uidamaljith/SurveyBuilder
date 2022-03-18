@@ -59,6 +59,7 @@ import {
 
 
  const SurveyTable = props => {
+  const [pageSize, setPageSize] = React.useState(10);
   const columns: GridColDef[] = [
     { field: "id", hide: true },
     { field: "Survey", headerName: "Survey", flex: 1,minWidth: 150,editable: true, },
@@ -105,13 +106,13 @@ import {
     //apiRef.current.setRowMode(id, 'edit');
     props.onEdit(data.id);
   };
-  // const handleDeleteClick = (id) => (event) => {
-  //   event.stopPropagation();
-  //   console.log(id);
-  // };
   return (
-    <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={props.data} columns={columns}/>
+    <div style={{ height: 700, width: '100%' }}>
+      <DataGrid 
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20]}
+        rows={props.data} columns={columns}/>
     </div>
   );
 }

@@ -10,11 +10,11 @@ import NewSurvey from '../newsurvey/NewSurvey';
 function Surveys() {
     const [newSurvey,setnewSurvey] = useState(false);
     const [editSurveyStatus,seteditSurveyStatus] = useState(false);
-    const urlBase = 'https://2u7idz6kn8.execute-api.us-east-1.amazonaws.com/Prod/';
+    const urlBase = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
     const [formData,setFormData] = useState({
         "surveyName": '', 
-        "welcomeMessage": '', 
-        "closingMessage": '', 
+        "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.',
+        "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
         "default":false, 
         "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
     });
@@ -26,8 +26,8 @@ function Surveys() {
         setnewSurvey(false);
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": '', 
-            "closingMessage": '', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
+            "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })
@@ -44,8 +44,8 @@ function Surveys() {
             const surveyProcessed = data.map(surveyData => ({ id: surveyData.id,
             Survey:  surveyData.surveyName, 
             PrimaryMetric: surveyData.Questions[0].questionType,
-            Created:surveyData.createdAt,
-            Modified:surveyData.modifiedAt
+            Created:new Date(surveyData.createdAt).toJSON().slice(0,10).split('-').reverse().join('/'),
+            Modified:new Date(surveyData.modifiedAt).toJSON().slice(0,10).split('-').reverse().join('/'),
           }));
             setSurveyData(surveyProcessed);
             console.log(surveyData);
@@ -68,8 +68,8 @@ function Surveys() {
 
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": '', 
-            "closingMessage": '', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
+            "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })
@@ -80,7 +80,7 @@ function Surveys() {
             method: 'POST',
             body: data
         };
-        fetch(`https://2u7idz6kn8.execute-api.us-east-1.amazonaws.com/Prod/updateSurveyData/${surveyId}`,requestOptions).then(async response => {
+        fetch(`${urlBase}updateSurveyData/${surveyId}`,requestOptions).then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
             const data = isJson && await response.json();
             fetchData();
@@ -104,7 +104,7 @@ function Surveys() {
             method: 'POST',
             body: data
         };
-        fetch('https://2u7idz6kn8.execute-api.us-east-1.amazonaws.com/Prod/addSurveyData',requestOptions).then(async response => {
+        fetch(`${urlBase}addSurveyData`,requestOptions).then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
             const data = isJson && await response.json();
             fetchData();
@@ -126,7 +126,7 @@ function Surveys() {
 
     const editSurvey = id => {
     console.log(id);
-    const url = `https://2u7idz6kn8.execute-api.us-east-1.amazonaws.com/Prod/getSurveyDataById/${id}`;
+    const url = `${urlBase}getSurveyDataById/${id}`;
     const fetchDataById = async () => {
         try {
             const response = await fetch(url);
@@ -161,10 +161,12 @@ function Surveys() {
     }
     return (
         <div className='content-container surveys'>
-            <div className='section-header'>
-                <h2>Surveys</h2>
-                <Button variant="contained" onClick={showSurveyForm}>New Survey</Button>
-            </div>
+            {surveyList &&
+                <div className='section-header'>
+                    <h2>Surveys</h2>
+                    <Button variant="contained" onClick={showSurveyForm}>New Survey</Button>
+                </div>
+            }
             <Card sx={{ minWidth: 275 }}>
                
                     {surveyList}

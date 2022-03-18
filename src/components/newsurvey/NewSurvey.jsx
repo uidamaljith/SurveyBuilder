@@ -32,15 +32,6 @@ const NewSurvey = props =>{
     });
     const [requiredValidation,setRequiredValidation] = React.useState(true);
     const [validationStatus,setValidationStatus] = React.useState(true);
-    // useEffect(() => {
-    //     if(props.formValue.surveyName){
-    //         setSurveyNameValid(true);
-    //         setWelcomeMessageValid(true);
-    //         setClosingMessageValid(true);
-    //     }
-
-    //   }, []);
-
       const checkValidation = () => {
         //let errors = validation;
         let surveyNameError = '';
@@ -51,7 +42,7 @@ const NewSurvey = props =>{
             return element.question === '';
         })
         if(question){
-            questionNameError = "Qustion is required"
+            questionNameError = "Please enter a question"
         }
         //first Name validation
         if (formValues.surveyName.trim()) {
@@ -59,41 +50,25 @@ const NewSurvey = props =>{
                 surveyNameError = "surveyName name must be >= 5";
             }
         }else{
-            surveyNameError = "surveyName name is required";
+            surveyNameError = "Please eneter survey name";
         }
-        // else {
-        //   errors.surveyName = "";
-        //   setValidationStatus(true);
-        // }
-        //last Name validation
         if (formValues.welcomeMessage.trim()) {
             if(formValues.welcomeMessage.length < 5){
                 welcomeMessageError = "welcomeMessage must be >= 5";
             }
           //setValidationStatus(false);
         } else{
-            welcomeMessageError = "welcomeMessage name is required";
+            welcomeMessageError = "Please enter welcome message";
         }
-        // else {
-        //   errors.welcomeMessage = "";
-        //   setValidationStatus(true);
-        // }
-        //last Name validation
         if (formValues.closingMessage.trim()) {
             if(formValues.closingMessage.length < 5){
                 closingMessageError = "closingMessage must be >= 5";
             }
-            //setValidationStatus(false);
           } 
           else{
-            closingMessageError = "closingMessage name is required";
+            closingMessageError = "Please enter closing message";
           }
-        //   else {
-        //     errors.closingMessage = "";
-        //     setValidationStatus(true);
-        //   }
         if (questionNameError || surveyNameError || welcomeMessageError || closingMessageError) {
-            //this.setState({ nameError, emailError, passwordError });
             setValidation({questionNameError,surveyNameError,welcomeMessageError,closingMessageError});
             return false;
           }
@@ -112,28 +87,11 @@ const NewSurvey = props =>{
         let newFormValues = [...questionValues];
         newFormValues[i][e.target.name] = e.target.value;
         setQuestionValues(newFormValues);
-        if(e.target.value){
-            if(e.target.value.length >= 5){
-                setValidation(prevValidation=>{
-                    return{
-                        ...prevValidation,
-                        "questionNameError":''
-                    }
-                })
-            }else{
-                setValidation(prevValidation=>{
-                    return{
-                        ...prevValidation,
-                        "questionNameError":'question must be >= 5'
-                    }
-                })
-            }
-
-        }else{
+        if(!e.target.value){
             setValidation(prevValidation=>{
                 return{
                     ...prevValidation,
-                    "questionNameError":'question is required'
+                    "questionNameError":'Please enter the question.'
                 }
             })
         }
@@ -285,8 +243,7 @@ const NewSurvey = props =>{
                         <div className="icon"><ChatBubbleOutlineIcon /></div>
                         <div className="form-field-group">
                             <label>Message</label>
-                            <TextareaAutosize name="welcomeMessage" onChange={e => handleFormChange(e)} value={formValues.welcomeMessage} fullWidth variant="outlined" placeholder='Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please 
-rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.' />
+                            <TextareaAutosize name="welcomeMessage" onChange={e => handleFormChange(e)} value={formValues.welcomeMessage} fullWidth variant="outlined" />
                         </div>
                         <span className="text-danger">{validation.welcomeMessageError}</span>
                     </div>
@@ -331,12 +288,13 @@ rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like 
                                                         id="demo-simple-select"
                                                         name='questionType'
                                                         label="Score"
-                                                        value={index > 0 ? formValues.surveyName !== ''?element.questionType:'CES':formValues.surveyName !== ''?element.questionType:'CSAT'}
+                                                        value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':formValues.surveyName !== ''?element.questionType:'CSAT'}
                                                         onChange={e => handleChange(index, e)}
                                                     >
                                                         {index < 1 && <MenuItem value='CSAT'>Customer Satisfaction Score</MenuItem>}
-                                                        <MenuItem value='CES'>Promoter Score</MenuItem>
-                                                        {index < 1 && <MenuItem value='NPS'>Effort Score</MenuItem>}
+                                                        {index < 1 && <MenuItem value='CES'>Customer Effort Score</MenuItem>}
+                                                        {index < 1 && <MenuItem value='NPS'>Net Promoter Score</MenuItem>}
+                                                        {index >= 1 && <MenuItem value='PS'>Point Scale</MenuItem>}
                                                     </Select>
                                                 </FormControl>
                                             </Box>
@@ -394,8 +352,7 @@ rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like 
                         <div className="icon"><ChatBubbleOutlineIcon /></div>
                         <div className="form-field-group">
                             <label>Message</label>
-                            <TextareaAutosize name="closingMessage" onChange={e => handleFormChange(e)} value={formValues.closingMessage} fullWidth variant="outlined" placeholder='Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please 
-rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.' />
+                            <TextareaAutosize name="closingMessage" onChange={e => handleFormChange(e)} value={formValues.closingMessage} fullWidth variant="outlined" />
                         </div>
                         <span className="text-danger">{validation.closingMessageError}</span>
                     </div>

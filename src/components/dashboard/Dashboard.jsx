@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -95,11 +95,25 @@ function Dashboard() {
 
     const [monthselector, setmonthselector] = React.useState('');
     const [surveyname, setsurveyname] = React.useState('');
-
+    const [questionsDetails, setQuestionsDetails] = React.useState('');
     const handleChange = (event) => {
         setmonthselector(event.target.value);
         setsurveyname(event.target.value);
     };
+    const url = ' https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/'+"dashboardGetQuestion";
+    const fetchData = async () => {
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            console.log(json.message);
+            setQuestionsDetails(json.message);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+      }, []);
 
     return (
         <div className='content-container dashboard'>
@@ -260,7 +274,7 @@ function Dashboard() {
                     <TabPanel value={1}><Card component="form" noValidate autoComplete="off">
                         <CardContent>
 
-                            <QuestionsTable></QuestionsTable>
+                            <QuestionsTable data={questionsDetails}></QuestionsTable>
 
                         </CardContent>
                     </Card></TabPanel>
