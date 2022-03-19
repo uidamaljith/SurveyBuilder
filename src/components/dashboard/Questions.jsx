@@ -6,7 +6,8 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const rows: GridRowsProp[] = [
   { id: 1, 
@@ -71,16 +72,23 @@ const columns: GridColDef[] = [
     let els = [];
   
     for (let i = 0; i < data.length; i++) {
-      els.push(<div style={{ height: 400, width: '100%' }}>
-      <h3>Survey{i+1}</h3>
-        <DataGrid 
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10, 20]}
-        rows={row[i]} 
-        columns={columns} 
-        key={i}/>
-      </div>);
+      els.push(
+        <Card component="form" noValidate autoComplete="off">
+            <CardContent>
+
+              <div style={{ height: 400, width: '100%' }}>
+              <h3>Survey{i+1}</h3>
+                <DataGrid 
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 20]}
+                rows={row[i]} 
+                columns={columns} 
+                key={i}/>
+              </div>
+            </CardContent>
+        </Card>
+      );
     }
   
     return els;
