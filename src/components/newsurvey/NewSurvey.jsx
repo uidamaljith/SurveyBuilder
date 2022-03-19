@@ -250,86 +250,82 @@ const NewSurvey = props =>{
 
                 </Card>
             </div>
+                <div className='section-header'>
+                    <h2>Primary Question</h2>
 
-            <div className='section-header'>
-                <h2>Primary Question</h2>
+                </div>
+            {questionValues.map((element, index) => (
+                <div className="section-content">
+                    {index == 1 && <h2>Additional</h2>}
 
-            </div>
-            <div className="section-content">
-                <Card component="form" noValidate autoComplete="off">
-                {questionValues.map((element, index) => (
-                                        <div className="icon-with-form form-inline" key={index}>
-                                        <div className="icon"><span>Q{index+1}</span>&nbsp;
-                                        {index > 0 && <button  onClick={e => deleteQuestions(e,index)}><DeleteIcon /></button>}
-                                        {index > 0 &&
-                                        <>
+                                        <Card component="form" noValidate autoComplete="off">
 
-                                            {index > 1 && <button  onClick={e => reArrangeQuestions(e,index,true)}><ArrowUpwardIcon /></button>}
-                                            {index+1 < questionValues.length && <button  onClick={e => reArrangeQuestions(e,index,false)}><ArrowDownwardIcon /></button>}
+                                            <div className="icon-with-form form-inline" key={index}>
+                                            <div className="icon"><span>Q{index+1}</span>&nbsp;
+                                            {index > 0 && <button  onClick={e => deleteQuestions(e,index)}><DeleteIcon /></button>}
+                                            {index > 0 &&
+                                            <>
 
-                                        </>
+                                                {index > 1 && <button  onClick={e => reArrangeQuestions(e,index,true)}><ArrowUpwardIcon /></button>}
+                                                {index+1 < questionValues.length && <button  onClick={e => reArrangeQuestions(e,index,false)}><ArrowDownwardIcon /></button>}
 
-                                        }
+                                            </>
+
+                                            }
+                                            </div>
+
+                                            <div className="form-field-group">
+                                                <label>Question</label>
+                                                
+                                                    <TextField id="QuestionName" name='question' variant="outlined" value={element.question} onChange={e => handleChange(index, e)}/>
+                                                
+                                            </div>
+                                            <div className="form-field-group">
+                                                <label>Question Type</label>
+                                                <Box sx={{ minWidth: 120 }}>
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="Score">Score</InputLabel>
+                                                        <Select
+                                                            labelId="Score"
+                                                            id="demo-simple-select"
+                                                            name='questionType'
+                                                            label="Score"
+                                                            value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':formValues.surveyName !== ''?element.questionType:'CSAT'}
+                                                            onChange={e => handleChange(index, e)}
+                                                        >
+                                                            {index < 1 && <MenuItem value='CSAT'>Customer Satisfaction Score</MenuItem>}
+                                                            {index < 1 && <MenuItem value='CES'>Customer Effort Score</MenuItem>}
+                                                            {index < 1 && <MenuItem value='NPS'>Net Promoter Score</MenuItem>}
+                                                            {index >= 1 && <MenuItem value='PS'>Point Scale</MenuItem>}
+                                                        </Select>
+                                                    </FormControl>
+                                                </Box>
+                                            </div>
+                                            <div className="form-field-group">
+                                                <label>Message</label>
+                                                <Box sx={{ maxWidth: 120 }}>
+                                                    <FormControl fullWidth>
+                                                        <InputLabel id="Scale">scale</InputLabel>
+                                                        <Select
+                                                            labelId="Scale"
+                                                            id="demo-simple-select"
+                                                            name='minScale'
+                                                            label="scale"
+                                                            value='10'
+                                                            onChange={e => handleChange(index, e)}
+                                                        >
+                                                            <MenuItem value={10}>1-5</MenuItem>
+                                                        
+                                                        </Select>
+                                                    </FormControl>
+                                                </Box>
+                                            </div>
                                         </div>
+                                        </Card>
 
-                                        <div className="form-field-group">
-                                            <label>Question</label>
-                                            
-                                                <TextField id="QuestionName" name='question' variant="outlined" value={element.question} onChange={e => handleChange(index, e)}/>
-                                            
-                                        </div>
-                                        <div className="form-field-group">
-                                            <label>Question Type</label>
-                                            <Box sx={{ minWidth: 120 }}>
-                                                <FormControl fullWidth>
-                                                    <InputLabel id="Score">Score</InputLabel>
-                                                    <Select
-                                                        labelId="Score"
-                                                        id="demo-simple-select"
-                                                        name='questionType'
-                                                        label="Score"
-                                                        value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':formValues.surveyName !== ''?element.questionType:'CSAT'}
-                                                        onChange={e => handleChange(index, e)}
-                                                    >
-                                                        {index < 1 && <MenuItem value='CSAT'>Customer Satisfaction Score</MenuItem>}
-                                                        {index < 1 && <MenuItem value='CES'>Customer Effort Score</MenuItem>}
-                                                        {index < 1 && <MenuItem value='NPS'>Net Promoter Score</MenuItem>}
-                                                        {index >= 1 && <MenuItem value='PS'>Point Scale</MenuItem>}
-                                                    </Select>
-                                                </FormControl>
-                                            </Box>
-                                        </div>
-                                        <div className="form-field-group">
-                                            <label>Message</label>
-                                            <Box sx={{ maxWidth: 120 }}>
-                                                <FormControl fullWidth>
-                                                    <InputLabel id="Scale">scale</InputLabel>
-                                                    <Select
-                                                        labelId="Scale"
-                                                        id="demo-simple-select"
-                                                        name='minScale'
-                                                        label="scale"
-                                                        value='10'
-                                                        onChange={e => handleChange(index, e)}
-                                                    >
-                                                        <MenuItem value={10}>1-5</MenuItem>
-                                                       
-                                                    </Select>
-                                                </FormControl>
-                                            </Box>
-                                        </div>
-                                    </div>
-                ))}
-
-
-                </Card>
-                <span>{validation.questionNameError}</span>
-            </div>
-
-            <div className='section-header'>
-                <h2>Additional Questions</h2>
-
-            </div>
+                    <span>{validation.questionNameError}</span>
+                </div>
+            ))}
             <div className="section-content add-question">
                 <Card component="form" noValidate autoComplete="off">
                 {
