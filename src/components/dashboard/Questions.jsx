@@ -35,9 +35,9 @@ const rows: GridRowsProp[] = [
 
 const columns: GridColDef[] = [
   // { field: "id", hide: true },
-  { field: "id", headerName: "#", flex: 1,maxWidth: 20, },
+  { field: "SL", headerName: "#", flex: 1,maxWidth: 50, },
   { field: "Question", headerName: "Question", flex: 1,minWidth: 400, },
-  { field: "Metric", headerName: "Primary Metric",flex: 1,minWidth: 150,},
+  { field: "Metric", headerName: "Metric",flex: 1,minWidth: 150,},
   { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150 },
   { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
   { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
@@ -50,15 +50,15 @@ const columns: GridColDef[] = [
   const row = [];
    data.map((item,index)=>{
     if (!row[index]) row[index] = [];
-    item.responses.map((element)=>{
+    item.responses.map((element,i)=>{
       //eval('var row' + index+1 + '=[]');
         row[index].push({ id: element.questionId, 
-          Sl:index+1,
+          SL:i+1,
           Question: element.question, 
           Metric: element.questionType,
-          Positive:element.totalPositiveScore,
-          Avarage:element.totalNeutralScore,
-          Negative:element.totalNegativeScore,
+          Positive:element.totalPositiveScore+'%  '+element.totalPositiveResponse,
+          Avarage:element.totalNeutralScore+'%  '+element.totalNeutralResponse,
+          Negative:element.totalNegativeScore+'%  '+element.totalNegativeResponse,
           Responses:element.totalResponse,
           
         })

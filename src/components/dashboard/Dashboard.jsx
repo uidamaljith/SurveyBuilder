@@ -93,15 +93,47 @@ const TabsList = styled(TabsListUnstyled)`
 
 function Dashboard() {
 
-    const [monthselector, setmonthselector] = React.useState('');
-    const [surveyname, setsurveyname] = React.useState('');
+    const [monthDetails, setMonthDetails] = React.useState('');
+    const [surveyId, setSurveyId] = React.useState('');
     const [questionsDetails, setQuestionsDetails] = React.useState('');
-    const handleChange = (event) => {
-        setmonthselector(event.target.value);
-        setsurveyname(event.target.value);
+    const [loading,setLoading] = React.useState(true);
+    const [surveyDetails, setSurveyDetails] = React.useState([]);
+    const handleChangeSurvey = (event) => {
+        setSurveyId(event.target.value);
+        console.log(event.target.value);
     };
-    const url = ' https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/'+"dashboardGetQuestion";
-    const fetchData = async () => {
+    const handleChangeMonth = (event) => {
+        setMonthDetails(event.target.value);
+        console.log(event.target.value);
+    };
+    useEffect(() => {
+        fetchData(surveyId,monthDetails);
+    }, [surveyId,monthDetails]);
+    const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
+    const surveyUrl = `${baseUrl}getAllSurveyData`
+    const fetchSurveyData = async () => {
+        try {
+            const response = await fetch(surveyUrl);
+            const json = await response.json();
+            console.log(json.message);
+            let data = json.message;
+            const surveyProcessed = data.map(surveyData => ({ id: surveyData.id,
+                name:  surveyData.surveyName, 
+              }));
+            setSurveyDetails(surveyProcessed);
+            setLoading(false);
+            console.log(surveyProcessed);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSurveyData();
+      }, []);
+
+    const fetchData = async (surveyId,month) => {
+        const url = `${baseUrl}dashboardGetQuestion/${surveyId}?month=${month}`;
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -112,9 +144,22 @@ function Dashboard() {
         }
     };
     useEffect(() => {
-        fetchData();
+        fetchData('','');
       }, []);
 
+      const renderSelectOptions = () => {
+        let els = [];
+      
+        for (let i = 0; i < surveyDetails.length; i++) {
+          els.push(<MenuItem value={surveyDetails[i].id} key={i}>{surveyDetails[i].name}</MenuItem>);
+        }
+      
+        return els;
+      };
+
+    if (loading) {
+    return <>Still loading...</>;
+    }
     return (
         <div className='content-container dashboard'>
             <div className='section-header'>
@@ -131,14 +176,14 @@ function Dashboard() {
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
-                                            value={monthselector}
+                                            value={monthDetails}
                                             label="Month Selector"
-                                            onChange={handleChange}
+                                            onChange={handleChangeMonth}
                                         >
-                                            <MenuItem value={10}>Last 12 Months</MenuItem>
-                                            <MenuItem value={20}>Last 6 Months</MenuItem>
-                                            <MenuItem value={30}>Last 3 Months</MenuItem>
-                                            <MenuItem value={30}>Last 1 Months</MenuItem>
+                                            <MenuItem value={12}>Last 12 Months</MenuItem>
+                                            <MenuItem value={6}>Last 6 Months</MenuItem>
+                                            <MenuItem value={3}>Last 3 Months</MenuItem>
+                                            <MenuItem value={1}>Last 1 Months</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -151,13 +196,16 @@ function Dashboard() {
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
-                                            value={surveyname}
+                                            value={surveyId}
                                             label="Survey Name"
-                                            onChange={handleChange}
+                                            onChange={handleChangeSurvey}
                                         >
-                                            <MenuItem value={10}>Customer Satisfaction Score</MenuItem>
+                                            {
+                                                renderSelectOptions()
+                                            }
+                                            {/* <MenuItem value={10}>Customer Satisfaction Score</MenuItem>
                                             <MenuItem value={20}>Promoter Score</MenuItem>
-                                            <MenuItem value={30}>Effort Score</MenuItem>
+                                            <MenuItem value={30}>Effort Score</MenuItem> */}
                                         </Select>
                                     </FormControl>
                                 </Box>

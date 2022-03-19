@@ -313,10 +313,6 @@ const NewSurvey = props =>{
                                                         onChange={e => handleChange(index, e)}
                                                     >
                                                         <MenuItem value={10}>1-5</MenuItem>
-                                                        {index < 1 && <>
-                                                            <MenuItem value={20}>5-10</MenuItem>
-                                                            <MenuItem value={30}>10-15</MenuItem>
-                                                        </>}
                                                        
                                                     </Select>
                                                 </FormControl>
