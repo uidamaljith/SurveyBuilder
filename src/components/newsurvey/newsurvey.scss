@@ -2,6 +2,22 @@
 
 .content-container{
     padding-bottom: $dpadding*4;
+    .MuiPaper-root{
+        margin-bottom: 20px;
+    }
+    .section-header{
+        padding: $dpadding*3;
+        .back-button{
+            background-color: transparent;
+            border: none;
+        }
+        &.survey-primary{
+            @include justify-content(flex-start);
+            .save-survey{
+                margin-left: auto;
+            }
+        }
+    }
 }
 
 .section-content {
@@ -50,6 +66,7 @@
     .icon {
         height: auto;
         @include flex(0);
+        @include flex-direction(column);
         @include flexbox();
         @include align-items(center);
         background-color: #f8f7f7;

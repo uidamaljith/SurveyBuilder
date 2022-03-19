@@ -82,7 +82,10 @@ export default function App() {
             <Route exact path="/" element={<Dashboard />} />
             <Route exact path="/Surveys" element={<Surveys />} />
             <Route exact path="/AgentRating" element={<AgentRating />} />
+            
             <Route exact path="/NewSurvey" element={<NewSurvey />} />
+            
+            
             <Route exact path="/ScoreTrend" element={<ScoreTrend />} />
 
           </Routes>

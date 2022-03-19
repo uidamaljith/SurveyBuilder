@@ -167,12 +167,12 @@ function Surveys() {
                     <Button variant="contained" onClick={showSurveyForm}>New Survey</Button>
                 </div>
             }
-            <Card sx={{ minWidth: 275 }}>
+            
                
                     {surveyList}
                    {newSurveyForm}
                    
-            </Card>
+            
 
 
         </div>
