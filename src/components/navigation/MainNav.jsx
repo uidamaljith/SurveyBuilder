@@ -26,9 +26,9 @@ function MainNav() {
                         <Link to="/AgentRating">Agent Rating</Link>
                     </li>
 
-                    <li>
+                    {/* <li>
                         <Link to="/NewSurvey">New Survey</Link>
-                    </li>
+                    </li> */}
                     <li>
                         <Link to="/ScoreTrend">Score Trend</Link>
                     </li>
