@@ -50,7 +50,7 @@ const NewSurvey = props =>{
                 surveyNameError = "surveyName name must be >= 5";
             }
         }else{
-            surveyNameError = "Please eneter survey name";
+            surveyNameError = "Please enter survey name";
         }
         if (formValues.welcomeMessage.trim()) {
             if(formValues.welcomeMessage.length < 5){
