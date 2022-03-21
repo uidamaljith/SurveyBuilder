@@ -296,34 +296,39 @@ const NewSurvey = (props) => {
           </div>
         </Card>
       </div>
-
       <div className="section-header">
         <h2>Primary Question</h2>
       </div>
-      <div className="section-content">
-        {questionValues.map((element, index) => (
+      {questionValues.map((element, index) => (
+        <div className="section-content">
+          {index == 1 && <h2>Additional Question</h2>}
+
           <Card component="form" noValidate autoComplete="off">
             <div className="icon-with-form form-inline" key={index}>
-              <div className="icon">
-                {index > 0 && (
-                  <>
-                    {index > 1 && (
-                      <button
-                        onClick={(e) => reArrangeQuestions(e, index, true)}
-                      >
-                        <ArrowUpwardIcon />
-                      </button>
-                    )}
-                    {index + 1 < questionValues.length && (
-                      <button
-                        onClick={(e) => reArrangeQuestions(e, index, false)}
-                      >
-                        <ArrowDownwardIcon />
-                      </button>
-                    )}
-                  </>
-                )}
+              <div className="icon ">
+                <div className="mover">
+                  {index > 0 && (
+                    <>
+                      {index > 1 && (
+                        <button
+                          onClick={(e) => reArrangeQuestions(e, index, true)}
+                        >
+                          <ArrowUpwardIcon />
+                        </button>
+                      )}
+                      {index + 1 < questionValues.length && (
+                        <button
+                          onClick={(e) => reArrangeQuestions(e, index, false)}
+                        >
+                          <ArrowDownwardIcon />
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+
                 <span>Q{index + 1}</span>
+
                 {index > 0 && (
                   <button onClick={(e) => deleteQuestions(e, index)}>
                     <DeleteIcon />
@@ -401,16 +406,15 @@ const NewSurvey = (props) => {
               </div>
             </div>
           </Card>
-        ))}
 
-        <span>{validation.questionNameError}</span>
-      </div>
-
+          <span>{validation.questionNameError}</span>
+        </div>
+      ))}
       <div className="section-content add-question">
         <Card component="form" noValidate autoComplete="off">
           {questionValues.length < 5 && (
             <Button variant="outlined" onClick={() => addFormFields()}>
-              <span>+</span>ADD QUESTION
+              <span>+</span>ADD ADDITIONAL QUESTION
             </Button>
           )}
         </Card>

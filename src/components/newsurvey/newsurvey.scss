@@ -72,6 +72,7 @@
         background-color: #f8f7f7;
         padding: $dpadding * 2 $dpadding * 6;
         border: 1px solid rgba(#ffffff, 1);
+        min-width:100px;
         span {
             @include font-size(28px);
             font-family: $primary-font;
@@ -79,6 +80,24 @@
             font-weight: bold;
             text-align: left;
             line-height: 1.7;
+        }
+        button{
+            border: none;
+            background-color: transparent;
+            svg{
+                fill: #AFAFAF;
+            }
+            &:hover{
+                svg{
+                    fill: #4D4F5C;
+                } 
+            }
+            
+        }
+        .mover{
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
         }
     }
     .form-field-group {

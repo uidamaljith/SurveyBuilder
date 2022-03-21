@@ -98,6 +98,7 @@ function Dashboard() {
     const [questionsDetails, setQuestionsDetails] = React.useState('');
     const [loading,setLoading] = React.useState(true);
     const [surveyDetails, setSurveyDetails] = React.useState([]);
+    const [surveyOverView, setSurveyOverView] = React.useState([]);
     const handleChangeSurvey = (event) => {
         setSurveyId(event.target.value);
         console.log(event.target.value);
@@ -110,8 +111,8 @@ function Dashboard() {
         fetchData(surveyId,monthDetails);
     }, [surveyId,monthDetails]);
     const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
-    const surveyUrl = `${baseUrl}getAllSurveyData`
-    const fetchSurveyData = async () => {
+    const fetchQuestionsData = async () => {
+        const surveyUrl = `${baseUrl}getAllSurveyData`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
@@ -127,9 +128,21 @@ function Dashboard() {
             console.log("error", error);
         }
     };
-
+    const fetchOverviewData = async () => {
+        const surveyUrl = `${baseUrl}dummyDashboardGetOverview`
+        try {
+            const response = await fetch(surveyUrl);
+            const json = await response.json();
+            console.log(json.message);
+            let data = json.message;
+            setSurveyOverView(data);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
     useEffect(() => {
-        fetchSurveyData();
+        fetchOverviewData();
+        fetchQuestionsData();
       }, []);
 
     const fetchData = async (surveyId,month) => {
@@ -157,6 +170,52 @@ function Dashboard() {
         return els;
       };
 
+      const renderOverview = () => {
+        let els = [];
+      
+        for (let i = 0; i < surveyOverView.length; i++) {
+          els.push(
+            <Card component="form" noValidate autoComplete="off">
+            <CardContent>
+
+                <h3>{surveyOverView[i].questionType}</h3>
+                <div className="score-content happy">
+                    <div className='score-smile'>
+                        <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />
+                        <div className='score-card'>
+                        <h4>{surveyOverView[i].score}</h4>
+                        <span>Score</span>
+                    </div>
+                    </div>
+                    <div className='score-card'>
+                        <h4>{surveyOverView[i].totalPositiveScore}</h4>
+                        <span>Positive</span>
+                    </div>
+                    <div className='score-card'>
+                        <h4>{surveyOverView[i].totalNeutralScore}</h4>
+                        <span>Neutral</span>
+                    </div>
+                    <div className='score-card'>
+                        <h4>{surveyOverView[i].totalNegativeScore}</h4>
+                        <span>Negative</span>
+                    </div>
+                    <div className='score-card'>
+                        <h4>{surveyOverView[i].totalResponse}</h4>
+                        <span>Responses</span>
+                    </div>
+                    <div className='score-card'>
+                        <Link to="/AgentRating">View Trend</Link>
+                    </div>
+                </div>
+
+            </CardContent>
+            </Card>
+          );
+        }
+      
+        return els;
+      };
+
     if (loading) {
     return <>Still loading...</>;
     }
@@ -169,10 +228,12 @@ function Dashboard() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                
+                                <label>Month Selector</label>
                                 <Box sx={{ minWidth: 300 }}>
+                                    
                                     <FormControl fullWidth>
-                                        <InputLabel id="MonthSelector">Month Selector</InputLabel>
+                                        <InputLabel id="MonthSelector">Select a Period</InputLabel>
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
@@ -189,10 +250,10 @@ function Dashboard() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="SurveyName">Survey Name</InputLabel>
+                                        <InputLabel id="SurveyName">Select a Survey</InputLabel>
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
@@ -223,8 +284,8 @@ function Dashboard() {
 
                     </TabsList>
                     <TabPanel value={0}>
-
-                        <Card component="form" noValidate autoComplete="off">
+                        {renderOverview()}
+                        {/* <Card component="form" noValidate autoComplete="off">
                             <CardContent>
 
                                 <h3>CSAT (Customer Satisfaction Score)</h3>
@@ -254,8 +315,8 @@ function Dashboard() {
                                 </div>
 
                             </CardContent>
-                        </Card>
-                        <Card component="form" noValidate autoComplete="off">
+                        </Card> */}
+                        {/* <Card component="form" noValidate autoComplete="off">
                             <CardContent>
 
                                 <h3>CSAT (Customer Satisfaction Score)</h3>
@@ -316,16 +377,12 @@ function Dashboard() {
                                 </div>
 
                             </CardContent>
-                        </Card>
+                        </Card> */}
 
                     </TabPanel>
-                    <TabPanel value={1}><Card component="form" noValidate autoComplete="off">
-                        <CardContent>
-
-                            <QuestionsTable data={questionsDetails}></QuestionsTable>
-
-                        </CardContent>
-                    </Card></TabPanel>
+                    <TabPanel value={1}>
+                        <QuestionsTable data={questionsDetails}></QuestionsTable>
+                    </TabPanel>
 
                 </TabsUnstyled>
 

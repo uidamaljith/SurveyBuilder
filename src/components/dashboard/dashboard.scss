@@ -31,6 +31,16 @@
         @include flex-direction(row);
         .form-field-group {
             margin-right: $dmargin * 3;
+            label {
+                margin-bottom: 8px;
+                display: inline-block;
+                @include font-size(14px);
+                font-family: $primary-font;
+                color: rgba(#4d4f5c, 1);
+                font-weight: bold;
+                text-align: left;
+                line-height: 1.7;
+            }
         }
     }
 
@@ -50,7 +60,7 @@
         
         .score-smile{
             @include flexbox();
-            @include flex-direction(column);
+            @include flex-direction(row);
             @include justify-content(center);
             height: $full;
             margin-right: $dmargin;
@@ -60,7 +70,7 @@
             @include flex-direction(column);
             @include justify-content(center);
             h4{
-                @include font-size(16px);
+                @include font-size(18px);
                 font-family: $primary-font;
                 color: rgba(#4d4f5c, 1);
                 font-weight: bold;
@@ -68,7 +78,7 @@
                 line-height: 1;
             }
             span{
-                @include font-size(12px);
+                @include font-size(15px);
                 font-family: $primary-font;
                 color: rgba(#4d4f5c, .3);
                 font-weight: normal;
