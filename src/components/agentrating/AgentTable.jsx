@@ -1,12 +1,13 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-
+import Card from '@mui/material/Card';
 
 
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import { height } from '@mui/system';
 
 
 const rows: GridRowsProp[] = [
@@ -43,18 +44,18 @@ const columns: GridColDef[] = [
   
 ];
 
+
+
+
+ 
+
  function AgentTable() {
-    
+
   return (
-    <div className='content-container dashboard'>
-        
-            
-        <div style={{ height: 300, width: '100%' }}>
-        {/* <Card sx={{ minWidth: 275 }}> */}
-            <DataGrid rows={rows} columns={columns} />
-        {/* </Card> */}
-        </div>
-    </div>
+    <div style={{ height: 400, width: '100%' }}>
+      
+      <DataGrid rows={rows} columns={columns} id="AgentTble" />
+     </div>
   );
 }
 

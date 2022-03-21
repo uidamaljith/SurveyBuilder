@@ -254,11 +254,12 @@ const NewSurvey = (props) => {
           Save
         </Button>
       </div>
-      <div className="section-content">
+      <div className="section-content survey-name">
         <Card component="form" noValidate autoComplete="off">
           <CardContent>
+            <label>Survey Name</label>
             <TextField
-              label="Survey Name"
+              label="Add Survey Name"
               required
               maxlength="10"
               name="surveyName"
@@ -266,8 +267,9 @@ const NewSurvey = (props) => {
               value={formValues.surveyName}
               onChange={(e) => handleFormChange(e)}
             />
+            <span className="text-danger">{validation.surveyNameError}</span>
           </CardContent>
-          <span className="text-danger">{validation.surveyNameError}</span>
+          
         </Card>
       </div>
 
@@ -276,6 +278,7 @@ const NewSurvey = (props) => {
       </div>
       <div className="section-content">
         <Card component="form" noValidate autoComplete="off">
+          
           <div className="icon-with-form">
             <div className="icon">
               <ChatBubbleOutlineIcon />
@@ -289,10 +292,11 @@ const NewSurvey = (props) => {
                 fullWidth
                 variant="outlined"
               />
+              <span className="text-danger">
+                {validation.welcomeMessageError}
+              </span>
             </div>
-            <span className="text-danger">
-              {validation.welcomeMessageError}
-            </span>
+            
           </div>
         </Card>
       </div>
@@ -341,9 +345,11 @@ const NewSurvey = (props) => {
 
                 <TextField
                   id="QuestionName"
-                  name="question"
+                  name="Question"
+                  label={element.question}
                   variant="outlined"
-                  value={element.question}
+                  value=""
+                  type="text"
                   onChange={(e) => handleChange(index, e)}
                 />
               </div>
@@ -437,10 +443,11 @@ const NewSurvey = (props) => {
                 fullWidth
                 variant="outlined"
               />
-            </div>
-            <span className="text-danger">
+              <span className="text-danger">
               {validation.closingMessageError}
             </span>
+            </div>
+            
           </div>
         </Card>
       </div>

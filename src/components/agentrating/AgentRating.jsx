@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import './agentrating.scss';
 
 
 function AgentRating() {
@@ -31,7 +32,7 @@ function AgentRating() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Month Selector</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="MonthSelector">Month Selector</InputLabel>
@@ -51,7 +52,7 @@ function AgentRating() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Select By Month</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="ByMonth">By Month</InputLabel>
@@ -70,7 +71,7 @@ function AgentRating() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Select Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="SurveyName">Survey Name</InputLabel>

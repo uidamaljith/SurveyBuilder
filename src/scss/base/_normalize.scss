@@ -407,8 +407,10 @@ li {
     margin: 0
 }
 
-.error{
+.error,.text-danger{
     color: red;
     padding: 10px;
+    padding-top: 0px;
     display: block;
+    width: 100%;
 }
