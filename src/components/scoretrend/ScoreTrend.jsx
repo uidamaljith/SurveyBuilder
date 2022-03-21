@@ -111,7 +111,7 @@ function ScoreTrend() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Select Month</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="MonthSelector">Month Selector</InputLabel>
@@ -131,7 +131,7 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Select By Month</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="ByMonth">By Month</InputLabel>
@@ -150,7 +150,7 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Select Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="SurveyName">Survey Name</InputLabel>

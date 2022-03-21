@@ -2,6 +2,22 @@
 
 .content-container{
     padding-bottom: $dpadding*4;
+    .MuiPaper-root{
+        margin-bottom: 20px;
+    }
+    .section-header{
+        padding: $dpadding*3;
+        .back-button{
+            background-color: transparent;
+            border: none;
+        }
+        &.survey-primary{
+            @include justify-content(flex-start);
+            .save-survey{
+                margin-left: auto;
+            }
+        }
+    }
 }
 
 .section-content {
@@ -20,6 +36,18 @@
                 }
             }
 
+        }
+    }
+    &.survey-name{
+        label {
+            margin-bottom: 8px;
+            display: inline-block;
+            @include font-size(14px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
         }
     }
     .MuiFormControl-root{
@@ -41,20 +69,26 @@
         @include align-self(center);
     }
 }
+.MuiDataGrid-footerContainer{
+    display: none !important
+}
 
 .icon-with-form {
     @include flexbox();
     @include flex-direction(row);
+    @include flex-wrap(wrap);
     // @include align-items(center);
     height: $full;
     .icon {
         height: auto;
         @include flex(0);
+        @include flex-direction(column);
         @include flexbox();
         @include align-items(center);
         background-color: #f8f7f7;
         padding: $dpadding * 2 $dpadding * 6;
         border: 1px solid rgba(#ffffff, 1);
+        min-width:100px;
         span {
             @include font-size(28px);
             font-family: $primary-font;
@@ -63,6 +97,24 @@
             text-align: left;
             line-height: 1.7;
         }
+        button{
+            border: none;
+            background-color: transparent;
+            svg{
+                fill: #AFAFAF;
+            }
+            &:hover{
+                svg{
+                    fill: #4D4F5C;
+                } 
+            }
+            
+        }
+        .mover{
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+        }
     }
     .form-field-group {
         height: $full;
@@ -70,6 +122,7 @@
         padding: $dpadding * 4;
         @include flexbox();
         @include flex-direction(column);
+        @include flex-wrap(wrap);
 
 
         label {

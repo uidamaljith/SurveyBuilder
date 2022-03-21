@@ -17,4 +17,26 @@
             background-color:#009688;
         }
     }
+
+    .section-content {
+        // @include flexbox();
+        // @include flex-direction(row);
+        // @include justify-content(space-between);
+        // margin-bottom: $dmargin*4;
+        h2 {
+            @include font-size(20px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+            margin-bottom: $dmargin*4;
+            padding: $dpadding*3;
+        }
+        
+    }
+}
+
+.MuiDataGrid-footerContainer{
+    display: none !important
 }

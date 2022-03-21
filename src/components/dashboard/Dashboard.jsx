@@ -228,10 +228,12 @@ function Dashboard() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                
+                                <label>Month Selector</label>
                                 <Box sx={{ minWidth: 300 }}>
+                                    
                                     <FormControl fullWidth>
-                                        <InputLabel id="MonthSelector">Month Selector</InputLabel>
+                                        <InputLabel id="MonthSelector">Select a Period</InputLabel>
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
@@ -248,10 +250,10 @@ function Dashboard() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="SurveyName">Survey Name</InputLabel>
+                                        <InputLabel id="SurveyName">Select a Survey</InputLabel>
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
