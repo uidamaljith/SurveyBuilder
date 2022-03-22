@@ -270,7 +270,7 @@ const NewSurvey = (props) => {
             <div className="icon">
               <ChatBubbleOutlineIcon />
             </div>
-            <div className="form-field-group">
+            <div className="form-field-group text-message">
               <label>Message</label>
               <TextareaAutosize
                 name="welcomeMessage"
@@ -327,7 +327,7 @@ const NewSurvey = (props) => {
                 )}
               </div>
 
-              <div className="form-field-group">
+              <div className="form-field-group text-question">
                 <label>Question</label>
 
                 <TextField
@@ -338,8 +338,9 @@ const NewSurvey = (props) => {
                   type="text"
                   onChange={(e) => handleChange(index, e)}
                 />
+                <span className="text-danger">{!element.question && validation.questionNameError}</span>
               </div>
-              <div className="form-field-group">
+              <div className="form-field-group text-type">
                 <label>Question Type</label>
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
@@ -370,7 +371,7 @@ const NewSurvey = (props) => {
                   </FormControl>
                 </Box>
               </div>
-              <div className="form-field-group">
+              <div className="form-field-group text-scale">
                 <label>Message</label>
                 <Box sx={{ maxWidth: 120 }}>
                   <FormControl fullWidth>
@@ -390,7 +391,7 @@ const NewSurvey = (props) => {
               </div>
             </div>
           </Card>
-          <span className="text-danger">{!element.question && validation.questionNameError}</span>
+          
         </div>
       ))}
       <div className="section-content add-question">
@@ -411,7 +412,7 @@ const NewSurvey = (props) => {
             <div className="icon">
               <ChatBubbleOutlineIcon />
             </div>
-            <div className="form-field-group">
+            <div className="form-field-group text-message">
               <label>Message</label>
               <TextareaAutosize
                 name="closingMessage"

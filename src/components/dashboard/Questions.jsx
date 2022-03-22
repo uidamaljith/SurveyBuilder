@@ -37,12 +37,12 @@ const rows: GridRowsProp[] = [
 const columns: GridColDef[] = [
   // { field: "id", hide: true },
   { field: "SL", headerName: "#", flex: 1,maxWidth: 50, },
-  { field: "Question", headerName: "Question", flex: 1,minWidth: 400, },
+  { field: "Question", headerName: "Question", flex: 1,minWidth: 300, },
   { field: "Metric", headerName: "Metric",flex: 1,minWidth: 150,},
-  { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150 },
-  { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
-  { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
-  { field: "Responses", headerName: "Responses",flex: 1,minWidth: 150,},
+  { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100 },
+  { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
+  { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
+  { field: "Responses", headerName: "Responses",flex: 1,minWidth: 100,},
   
 ];
 
@@ -73,11 +73,13 @@ const columns: GridColDef[] = [
   
     for (let i = 0; i < data.length; i++) {
       els.push(
-        <Card component="form" noValidate autoComplete="off">
+        <div>
+          <h3> Survey #{i+1}</h3>
+          <Card component="form" noValidate autoComplete="off">
             <CardContent>
 
-              <div style={{ height: 400, width: '100%' }}>
-              <h3>Survey{i+1}</h3>
+              <div style={{ height: 330, width: '100%' }}>
+              
                 <DataGrid 
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -88,6 +90,8 @@ const columns: GridColDef[] = [
               </div>
             </CardContent>
         </Card>
+        </div>
+        
       );
     }
   
