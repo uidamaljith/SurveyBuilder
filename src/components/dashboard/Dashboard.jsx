@@ -94,8 +94,8 @@ const TabsList = styled(TabsListUnstyled)`
 
 function Dashboard() {
 
-    const [monthDetails, setMonthDetails] = React.useState('');
-    const [surveyId, setSurveyId] = React.useState('');
+    const [monthDetails, setMonthDetails] = React.useState('12');
+    const [surveyId, setSurveyId] = React.useState('1');
     const [questionsDetails, setQuestionsDetails] = React.useState('');
     const [loading,setLoading] = React.useState(true);
     const [surveyDetails, setSurveyDetails] = React.useState([]);
@@ -103,7 +103,6 @@ function Dashboard() {
     const [viewTrend, setViewTrend] = React.useState(false);
     const handleChangeSurvey = (event) => {
         setSurveyId(event.target.value);
-        console.log(event.target.value);
     };
     const handleChangeMonth = (event) => {
         setMonthDetails(event.target.value);
@@ -123,6 +122,9 @@ function Dashboard() {
             const surveyProcessed = data.map(surveyData => ({ id: surveyData.id,
                 name:  surveyData.surveyName, 
               }));
+              surveyProcessed.unshift({ id: '1',
+                name:  'All',
+              })
             setSurveyDetails(surveyProcessed);
             setLoading(false);
             console.log(surveyProcessed);
@@ -131,7 +133,7 @@ function Dashboard() {
         }
     };
     const fetchOverviewData = async () => {
-        const surveyUrl = `${baseUrl}dummyDashboardGetOverview`
+        const surveyUrl = `${baseUrl}dashboardGetOverview`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
@@ -181,46 +183,49 @@ function Dashboard() {
         let els = [];
       
         for (let i = 0; i < surveyOverView.length; i++) {
-          els.push(
-            <Card component="form" noValidate autoComplete="off">
-            <CardContent>
+            if(surveyOverView[i].totalResponse > 0){
+                els.push(
+                    <Card component="form" noValidate autoComplete="off">
+                    <CardContent>
+        
+                        <h3>{surveyOverView[i].questionType}</h3>
+                        <div className="score-content happy">
+                            <div className='score-smile'>
+                                {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />}
+                                {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
+                                {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
+                                <div className='score-card'>
+                                <h4>{surveyOverView[i].score}</h4>
+                                <span>Score</span>
+                            </div>
+                            </div>
+                            <div className='score-card'>
+                                <h4>{surveyOverView[i].totalPositiveScore}</h4>
+                                <span>Positive</span>
+                            </div>
+                            <div className='score-card'>
+                                <h4>{surveyOverView[i].totalNeutralScore}</h4>
+                                <span>Neutral</span>
+                            </div>
+                            <div className='score-card'>
+                                <h4>{surveyOverView[i].totalNegativeScore}</h4>
+                                <span>Negative</span>
+                            </div>
+                            <div className='score-card'>
+                                <h4>{surveyOverView[i].totalResponse}</h4>
+                                <span>Responses</span>
+                            </div>
+                            <div className='score-card'>
+                                <a href="#" onClick={showTrend}>View Trend</a>
+                                {/* <Link to="/AgentRating">View Trend</Link> */}
+                            </div>
+                        </div>
+        
+                    </CardContent>
+                    </Card>
+                  );
+            }
 
-                <h3>{surveyOverView[i].questionType}</h3>
-                <div className="score-content happy">
-                    <div className='score-smile'>
-                        {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />}
-                        {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
-                        {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
-                        <div className='score-card'>
-                        <h4>{surveyOverView[i].score}</h4>
-                        <span>Score</span>
-                    </div>
-                    </div>
-                    <div className='score-card'>
-                        <h4>{surveyOverView[i].totalPositiveScore}</h4>
-                        <span>Positive</span>
-                    </div>
-                    <div className='score-card'>
-                        <h4>{surveyOverView[i].totalNeutralScore}</h4>
-                        <span>Neutral</span>
-                    </div>
-                    <div className='score-card'>
-                        <h4>{surveyOverView[i].totalNegativeScore}</h4>
-                        <span>Negative</span>
-                    </div>
-                    <div className='score-card'>
-                        <h4>{surveyOverView[i].totalResponse}</h4>
-                        <span>Responses</span>
-                    </div>
-                    <div className='score-card'>
-                        <a href="#" onClick={showTrend}>View Trend</a>
-                        {/* <Link to="/AgentRating">View Trend</Link> */}
-                    </div>
-                </div>
-
-            </CardContent>
-            </Card>
-          );
         }
       
         return els;
@@ -230,7 +235,7 @@ function Dashboard() {
         return <>Still loading...</>;
     }else{
         if(viewTrend){
-            scoretrend = <ScoreTrend />
+            scoretrend = <ScoreTrend surveyDetails={surveyDetails}/>
         }
     }
     return (
@@ -238,9 +243,6 @@ function Dashboard() {
              
             {!viewTrend &&             <>
             <div className='section-header'>
-            <button onClick={onBackClick} className="back-button">
-                <ArrowBackIcon />
-            </button>
                 <h2>Dashboard</h2>
             </div>
             <div className="section-content">
@@ -315,7 +317,9 @@ function Dashboard() {
             </div>
             </>}
 
-
+            {viewTrend &&             <button onClick={onBackClick} className="back-button">
+                <ArrowBackIcon />
+            </button>}
             {scoretrend}
         </div>
 

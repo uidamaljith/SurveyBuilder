@@ -6,6 +6,8 @@ import SurveyTable from './SurveyTable/SurveyTable';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import NewSurvey from '../newsurvey/NewSurvey';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Surveys() {
     const [newSurvey,setnewSurvey] = useState(false);
@@ -44,8 +46,10 @@ function Surveys() {
             const surveyProcessed = data.map(surveyData => ({ id: surveyData.id,
             Survey:  surveyData.surveyName, 
             PrimaryMetric: surveyData.Questions[0].questionType,
-            Created:new Date(surveyData.createdAt).toJSON().slice(0,10).split('-').reverse().join('/'),
-            Modified:new Date(surveyData.modifiedAt).toJSON().slice(0,10).split('-').reverse().join('/'),
+            Created:new Date(surveyData.createdAt).toLocaleDateString("en-US"),
+            Modified:new Date(surveyData.modifiedAt).toLocaleDateString("en-US"),
+            // Created:new Date(surveyData.createdAt).toJSON().slice(0,10).split('-').reverse().join('/'),
+            // Modified:new Date(surveyData.modifiedAt).toJSON().slice(0,10).split('-').reverse().join('/'),
           }));
             setSurveyData(surveyProcessed);
             console.log(surveyData);
@@ -90,11 +94,13 @@ function Surveys() {
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
+            toast.success("Survey updated successfully")
 
             //this.setState({ postId: data.id })
         })
         .catch(error => {
             //this.setState({ errorMessage: error.toString() });
+            toast.error("Something went wrong.! Please try again after some time")
             console.error('There was an error!', error);
         });
         //this.setState({ postId: data.id });
@@ -114,11 +120,12 @@ function Surveys() {
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
-
+            toast.success("Survey added successfully")
             //this.setState({ postId: data.id })
         })
         .catch(error => {
             //this.setState({ errorMessage: error.toString() });
+            toast.error("Something went wrong.! Please try again after some time")
             console.error('There was an error!', error);
         });;
 
