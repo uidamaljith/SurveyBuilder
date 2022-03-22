@@ -29,9 +29,9 @@ function MainNav() {
                     {/* <li>
                         <Link to="/NewSurvey">New Survey</Link>
                     </li> */}
-                    <li>
+                    {/* <li>
                         <Link to="/ScoreTrend">Score Trend</Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>

@@ -46,26 +46,13 @@ const NewSurvey = (props) => {
       questionNameError = "Please enter a question";
     }
     //first Name validation
-    if (formValues.surveyName.trim()) {
-      if (formValues.surveyName.length < 5) {
-        surveyNameError = "surveyName name must be >= 5";
-      }
-    } else {
+    if (!formValues.surveyName.trim()) {
       surveyNameError = "Please enter survey name";
     }
-    if (formValues.welcomeMessage.trim()) {
-      if (formValues.welcomeMessage.length < 5) {
-        welcomeMessageError = "welcomeMessage must be >= 5";
-      }
-      //setValidationStatus(false);
-    } else {
+    if (!formValues.welcomeMessage.trim()) {
       welcomeMessageError = "Please enter welcome message";
     }
-    if (formValues.closingMessage.trim()) {
-      if (formValues.closingMessage.length < 5) {
-        closingMessageError = "closingMessage must be >= 5";
-      }
-    } else {
+    if (!formValues.closingMessage.trim()) {
       closingMessageError = "Please enter closing message";
     }
     if (
@@ -98,7 +85,7 @@ const NewSurvey = (props) => {
       setValidation((prevValidation) => {
         return {
           ...prevValidation,
-          questionNameError: "Please enter the question.",
+          questionNameError: "",
         };
       });
     }
@@ -117,7 +104,7 @@ const NewSurvey = (props) => {
           questionId: uuidv4(),
           questionNo: questionValues.length + 1,
           question: "",
-          questionType: "CES",
+          questionType: "PS",
           minScale: 1,
           maxScale: 5,
         },
@@ -128,7 +115,7 @@ const NewSurvey = (props) => {
         {
           questionNo: questionValues.length + 1,
           question: "",
-          questionType: "CES",
+          questionType: "PS",
           minScale: 1,
           maxScale: 5,
         },
@@ -259,7 +246,7 @@ const NewSurvey = (props) => {
           <CardContent>
             <label>Survey Name</label>
             <TextField
-              label="Add Survey Name"
+              //label="Add Survey Name"
               required
               maxlength="10"
               name="surveyName"
@@ -345,10 +332,9 @@ const NewSurvey = (props) => {
 
                 <TextField
                   id="QuestionName"
-                  name="Question"
-                  label={element.question}
+                  name="question"
                   variant="outlined"
-                  value=""
+                  value={element.question}
                   type="text"
                   onChange={(e) => handleChange(index, e)}
                 />
@@ -357,21 +343,13 @@ const NewSurvey = (props) => {
                 <label>Question Type</label>
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
-                    <InputLabel id="Score">Score</InputLabel>
+                    {/* <InputLabel id="Score">Score</InputLabel> */}
                     <Select
                       labelId="Score"
                       id="demo-simple-select"
                       name="questionType"
-                      label="Score"
-                      value={
-                        index > 0
-                          ? formValues.surveyName !== ""
-                            ? element.questionType
-                            : "PS"
-                          : formValues.surveyName !== ""
-                          ? element.questionType
-                          : "CSAT"
-                      }
+                     // label="Score"
+                      value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':formValues.surveyName !== ''?element.questionType:'CSAT'}
                       onChange={(e) => handleChange(index, e)}
                     >
                       {index < 1 && (
@@ -396,12 +374,12 @@ const NewSurvey = (props) => {
                 <label>Message</label>
                 <Box sx={{ maxWidth: 120 }}>
                   <FormControl fullWidth>
-                    <InputLabel id="Scale">scale</InputLabel>
+                    {/* <InputLabel id="Scale">scale</InputLabel> */}
                     <Select
                       labelId="Scale"
                       id="demo-simple-select"
                       name="minScale"
-                      label="scale"
+                      //label="scale"
                       value="10"
                       onChange={(e) => handleChange(index, e)}
                     >
@@ -412,8 +390,7 @@ const NewSurvey = (props) => {
               </div>
             </div>
           </Card>
-
-          <span>{validation.questionNameError}</span>
+          <span className="text-danger">{!element.question && validation.questionNameError}</span>
         </div>
       ))}
       <div className="section-content add-question">
