@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -18,6 +18,10 @@ import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
+
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { red,green } from "@mui/material/colors";
 
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -95,13 +99,47 @@ function ScoreTrend() {
     const [monthselector, setMonthselector] = React.useState('');
     const [surveyname, setSurveyname] = React.useState('');
     const [bymonth, setBymonth] = React.useState('');
-
+    const [scoreTrend, setScoreTrend] = React.useState('');
     const handleChange = (event) => {
         setMonthselector(event.target.value);
         setSurveyname(event.target.value);
         setBymonth(event.target.value);
     };
+    const url = "https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/dummyDashboardGetTrend";
+    const fetchData = async () => {
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            console.log(json.message);
+            setScoreTrend(json.message);
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+      }, []);
 
+      const renderTrend = () => {
+        let els = [];
+      
+        for (let i = 0; i < scoreTrend.length; i++) {
+          els.push(
+            <div className="scoretrend-row">
+                <div className='score-month'>{scoreTrend[i].date}</div>
+                <div className='score-percentage'>{scoreTrend[i].totalPositiveScore}</div>
+                <div className='score-diff diff-nutral'>{parseInt(scoreTrend[i].difference)>=0 ? <ArrowUpwardIcon sx={{ color: green[300] }}/>:<ArrowDownwardIcon sx={{ color: red[300] }}/> }{Math.abs(parseInt(scoreTrend[i].difference))}%</div>
+                <div className='score-graph'>
+                    <div className="positive" style={{width:scoreTrend[i].totalPositiveScore}}></div>
+                    <div className="avarage" style={{width:scoreTrend[i].totalNeutralScore}}></div>
+                    <div className="negative" style={{width:scoreTrend[i].totalNegativeScore}}></div>
+                </div>
+            </div>
+          );
+        }
+      
+        return els;
+      };
     return (
         <div className='content-container dashboard'>
             <div className='section-header'>
@@ -111,7 +149,7 @@ function ScoreTrend() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                <label>Select Month</label>
+                                {/* <label>Question Type</label> */}
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="MonthSelector">Month Selector</InputLabel>
@@ -131,7 +169,7 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                <label>Select By Month</label>
+                                {/* <label>Question Type</label> */}
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="ByMonth">By Month</InputLabel>
@@ -150,7 +188,7 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                <label>Select Survey Name</label>
+                                {/* <label>Question Type</label> */}
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="SurveyName">Survey Name</InputLabel>
@@ -176,7 +214,11 @@ function ScoreTrend() {
             <Card component="form" noValidate autoComplete="off">
                     <CardContent>
 
-                        <div className="scoretrend-row">
+                        {
+                            renderTrend()
+                        }
+
+                        {/*<div className="scoretrend-row">
                             <div className='score-month'>Dec 2021</div>
                             <div className='score-percentage'>85%</div>
                             <div className='score-diff diff-nutral'>0%</div>
@@ -186,7 +228,7 @@ function ScoreTrend() {
                                 <div className="negative" style={{width:'10%'}}></div>
                             </div>
                         </div>
-                        <div className="scoretrend-row">
+                         <div className="scoretrend-row">
                             <div className='score-month'>Nov</div>
                             <div className='score-percentage'>85%</div>
                             <div className='score-diff diff-positive'>3%</div>
@@ -215,7 +257,7 @@ function ScoreTrend() {
                                 <div className="avarage" style={{width:'20%'}}></div>
                                 <div className="negative" style={{width:'10%'}}></div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </CardContent>
             </Card>

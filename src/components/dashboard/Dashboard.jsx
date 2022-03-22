@@ -22,9 +22,10 @@ import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-
+import ScoreTrend from '../scoretrend/ScoreTrend';
 import QuestionsTable from './Questions';
 import './dashboard.scss';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const blue = {
     50: '#F0F7FF',
@@ -99,6 +100,7 @@ function Dashboard() {
     const [loading,setLoading] = React.useState(true);
     const [surveyDetails, setSurveyDetails] = React.useState([]);
     const [surveyOverView, setSurveyOverView] = React.useState([]);
+    const [viewTrend, setViewTrend] = React.useState(false);
     const handleChangeSurvey = (event) => {
         setSurveyId(event.target.value);
         console.log(event.target.value);
@@ -157,9 +159,14 @@ function Dashboard() {
         }
     };
     useEffect(() => {
-        fetchData('','');
+        fetchData('','12');
       }, []);
-
+      const showTrend = () =>{
+        setViewTrend(true);
+      }
+      const onBackClick = () =>{
+        setViewTrend(false);
+      }
       const renderSelectOptions = () => {
         let els = [];
       
@@ -181,7 +188,9 @@ function Dashboard() {
                 <h3>{surveyOverView[i].questionType}</h3>
                 <div className="score-content happy">
                     <div className='score-smile'>
-                        <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />
+                        {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />}
+                        {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
+                        {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
                         <div className='score-card'>
                         <h4>{surveyOverView[i].score}</h4>
                         <span>Score</span>
@@ -204,7 +213,8 @@ function Dashboard() {
                         <span>Responses</span>
                     </div>
                     <div className='score-card'>
-                        <Link to="/AgentRating">View Trend</Link>
+                        <a href="#" onClick={showTrend}>View Trend</a>
+                        {/* <Link to="/AgentRating">View Trend</Link> */}
                     </div>
                 </div>
 
@@ -215,12 +225,20 @@ function Dashboard() {
       
         return els;
       };
-
+      let scoretrend;
     if (loading) {
-    return <>Still loading...</>;
+        return <>Still loading...</>;
+    }else{
+        if(viewTrend){
+            scoretrend = <ScoreTrend />
+        }
     }
     return (
         <div className='content-container dashboard'>
+             <button onClick={onBackClick} className="back-button">
+                <ArrowBackIcon />
+            </button>
+            {!viewTrend &&             <>
             <div className='section-header'>
                 <h2>Dashboard</h2>
             </div>
@@ -276,109 +294,14 @@ function Dashboard() {
 
             </div>
             <div className="section-content">
-
+              
                 <TabsUnstyled defaultValue={0}>
                     <TabsList>
                         <Tab>Overview</Tab>
                         <Tab>Questions</Tab>
-
                     </TabsList>
                     <TabPanel value={0}>
                         {renderOverview()}
-                        {/* <Card component="form" noValidate autoComplete="off">
-                            <CardContent>
-
-                                <h3>CSAT (Customer Satisfaction Score)</h3>
-                                <div className="score-content happy">
-                                    <div className='score-smile'>
-                                        <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>75%</h4>
-                                        <span>Score</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>20%</h4>
-                                        <span>Neutral</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>5%</h4>
-                                        <span>Negative</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>1,233</h4>
-                                        <span>Responses</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <Link to="/AgentRating">View Trend</Link>
-                                    </div>
-                                </div>
-
-                            </CardContent>
-                        </Card> */}
-                        {/* <Card component="form" noValidate autoComplete="off">
-                            <CardContent>
-
-                                <h3>CSAT (Customer Satisfaction Score)</h3>
-                                <div className="score-content avarge">
-                                    <div className='score-smile'>
-                                        <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>75%</h4>
-                                        <span>Score</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>20%</h4>
-                                        <span>Neutral</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>5%</h4>
-                                        <span>Negative</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>1,233</h4>
-                                        <span>Responses</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <Link to="/AgentRating">View Trend</Link>
-                                    </div>
-                                </div>
-
-                            </CardContent>
-                        </Card>
-                        <Card component="form" noValidate autoComplete="off">
-                            <CardContent>
-
-                                <h3>CSAT (Customer Satisfaction Score)</h3>
-                                <div className="score-content sad">
-                                    <div className='score-smile'>
-                                        <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>75%</h4>
-                                        <span>Score</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>20%</h4>
-                                        <span>Neutral</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>5%</h4>
-                                        <span>Negative</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <h4>1,233</h4>
-                                        <span>Responses</span>
-                                    </div>
-                                    <div className='score-card'>
-                                        <Link to="/AgentRating">View Trend</Link>
-                                    </div>
-                                </div>
-
-                            </CardContent>
-                        </Card> */}
-
                     </TabPanel>
                     <TabPanel value={1}>
                         <QuestionsTable data={questionsDetails}></QuestionsTable>
@@ -387,9 +310,14 @@ function Dashboard() {
                 </TabsUnstyled>
 
 
+                
             </div>
+            </>}
 
+
+            {scoretrend}
         </div>
+
     )
 }
 
