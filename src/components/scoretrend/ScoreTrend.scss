@@ -17,6 +17,7 @@
             font-weight: normal;
             text-align: left;
             line-height: 1.7;
+            text-transform: capitalize;
     }
     .score-percentage{
         @include flex(1);
@@ -29,6 +30,8 @@
     }
     .score-diff{
         @include flex(1);
+        @include flexbox();
+        @include align-items(center);
         @include font-size(14px);
             font-family: $primary-font;
             

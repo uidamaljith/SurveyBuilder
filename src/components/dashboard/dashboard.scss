@@ -3,7 +3,19 @@
     padding-bottom: $dpadding * 4;
 }
 
+.section-header{
+    padding: 0px;
+    margin-bottom:$null ;
+    .back-button{
+        background-color: transparent;
+        border: none;
+        padding: $null;
+    }
+    
+}
+
 .section-content {
+    margin-top: 20px;
     margin-bottom: 20px;
     &.add-question {
         text-align: center;
@@ -46,7 +58,7 @@
 
     .TabPanelUnstyled-root{
         .MuiPaper-root{
-            margin-bottom: $dmargin*4;
+            margin-bottom: $dmargin*4 !important;
         }
     }
 
@@ -87,4 +99,57 @@
             }
         }
     }
+}
+
+.dashboard{
+    .section-header{
+        margin-top: 20px;
+        h2 {
+            @include font-size(20px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+        }
+        .back-button{
+            display: none;
+            svg{
+                fill:rgba(#4d4f5c, 1);
+            }
+        }
+        
+    }
+    .overview-tab{
+
+    }
+    .TabsUnstyled-root{
+
+        h3{
+            @include font-size(20px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+        }
+        .css-1a5qejj{
+            border-bottom: #009688 3px solid;
+            border-radius: 0px !important;
+            button{
+                margin-bottom: 0px;
+                border-radius: 0px !important;
+            }
+        }
+    }
+    .question-tab{
+        .MuiCardContent-root{
+            padding: 0px !important;
+            .css-jgzxgq-MuiDataGrid-root{
+                // border-radius: 0px;
+                border: none;
+            }
+        }
+    }
+    
 }

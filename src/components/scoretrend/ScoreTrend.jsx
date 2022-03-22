@@ -128,7 +128,7 @@ function ScoreTrend() {
             <div className="scoretrend-row">
                 <div className='score-month'>{scoreTrend[i].date}</div>
                 <div className='score-percentage'>{scoreTrend[i].totalPositiveScore}</div>
-                <div className='score-diff diff-nutral'>{parseInt(scoreTrend[i].difference)>=0 ? <ArrowUpwardIcon sx={{ color: green[300] }}/>:<ArrowDownwardIcon sx={{ color: red[300] }}/> }{Math.abs(parseInt(scoreTrend[i].difference))}%</div>
+                <div className='score-diff diff-nutral'>{parseInt(scoreTrend[i].difference)>=0 ? <ArrowUpwardIcon sx={{ color: green[300] }}/>:<ArrowDownwardIcon sx={{ color: red[300] }}/> }<span>{Math.abs(parseInt(scoreTrend[i].difference))}%</span></div>
                 <div className='score-graph'>
                     <div className="positive" style={{width:scoreTrend[i].totalPositiveScore}}></div>
                     <div className="avarage" style={{width:scoreTrend[i].totalNeutralScore}}></div>
@@ -149,10 +149,10 @@ function ScoreTrend() {
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Month Selector</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="MonthSelector">Month Selector</InputLabel>
+                                        {/* <InputLabel id="MonthSelector">Month Selector</InputLabel> */}
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
@@ -169,10 +169,10 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>By Month</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="ByMonth">By Month</InputLabel>
+                                        {/* <InputLabel id="ByMonth">By Month</InputLabel> */}
                                         <Select
                                             labelId="ByMonth"
                                             id="Month"
@@ -188,10 +188,10 @@ function ScoreTrend() {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                {/* <label>Question Type</label> */}
+                                <label>Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="SurveyName">Survey Name</InputLabel>
+                                        {/* <InputLabel id="SurveyName"></InputLabel> */}
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
