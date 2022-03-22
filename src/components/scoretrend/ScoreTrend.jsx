@@ -94,12 +94,13 @@ const TabsList = styled(TabsListUnstyled)`
 
 
 
-function ScoreTrend() {
+const ScoreTrend = ({surveyDetails}) => {
 
-    const [monthselector, setMonthselector] = React.useState('');
+    const [monthselector, setMonthselector] = React.useState('12');
     const [surveyname, setSurveyname] = React.useState('');
-    const [bymonth, setBymonth] = React.useState('');
+    const [bymonth, setBymonth] = React.useState('month');
     const [scoreTrend, setScoreTrend] = React.useState('');
+    const [surveyId, setSurveyId] = React.useState('1');
     const handleChange = (event) => {
         setMonthselector(event.target.value);
         setSurveyname(event.target.value);
@@ -140,6 +141,16 @@ function ScoreTrend() {
       
         return els;
       };
+
+      const renderSelectOptions = () => {
+        let els = [];
+      
+        for (let i = 0; i < surveyDetails.length; i++) {
+          els.push(<MenuItem value={surveyDetails[i].id} key={i}>{surveyDetails[i].name}</MenuItem>);
+        }
+      
+        return els;
+      };
     return (
         <div className='content-container dashboard'>
             <div className='section-header'>
@@ -160,10 +171,10 @@ function ScoreTrend() {
                                             label="Month Selector"
                                             onChange={handleChange}
                                         >
-                                            <MenuItem value={10}>Last 12 Months</MenuItem>
-                                            <MenuItem value={20}>Last 6 Months</MenuItem>
-                                            <MenuItem value={30}>Last 3 Months</MenuItem>
-                                            <MenuItem value={30}>Last 1 Months</MenuItem>
+                                            <MenuItem value={12}>Last 12 Months</MenuItem>
+                                            <MenuItem value={6}>Last 6 Months</MenuItem>
+                                            <MenuItem value={3}>Last 3 Months</MenuItem>
+                                            <MenuItem value={1}>Last 1 Months</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -180,9 +191,9 @@ function ScoreTrend() {
                                             label="By Month"
                                             onChange={handleChange}
                                         >
-                                            <MenuItem value={10}>By Month</MenuItem>
-                                            <MenuItem value={20}>January</MenuItem>
-                                            <MenuItem value={30}>February</MenuItem>
+                                            <MenuItem value={'month'}>By Month</MenuItem>
+                                            <MenuItem value={'Quater'}> By Quater</MenuItem>
+                                            <MenuItem value={'Half'}>By Half Yearly</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -195,13 +206,16 @@ function ScoreTrend() {
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
-                                            value={surveyname}
+                                            value={surveyId}
                                             label="Survey Name"
                                             onChange={handleChange}
                                         >
-                                            <MenuItem value={10}>Customer Satisfaction Score</MenuItem>
+                                            {
+                                                renderSelectOptions()
+                                            }
+                                            {/* <MenuItem value={10}>Customer Satisfaction Score</MenuItem>
                                             <MenuItem value={20}>Promoter Score</MenuItem>
-                                            <MenuItem value={30}>Effort Score</MenuItem>
+                                            <MenuItem value={30}>Effort Score</MenuItem> */}
                                         </Select>
                                     </FormControl>
                                 </Box>
