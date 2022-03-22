@@ -409,8 +409,18 @@ li {
 
 .error,.text-danger{
     color: red;
-    padding: 10px;
-    padding-top: 0px;
+    padding: 5px;
+    
     display: block;
     width: 100%;
+    &:empty{
+        padding: $null;
+    }
+}
+
+form{
+    margin: $null !important;
+    &:empty{
+        display: none;
+    }
 }

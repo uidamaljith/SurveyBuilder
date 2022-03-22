@@ -35,12 +35,12 @@ function AgentRating() {
                                 <label>Month Selector</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="MonthSelector">Month Selector</InputLabel>
+                                        {/* <InputLabel id="MonthSelector">Month Selector</InputLabel> */}
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
                                             value={monthselector}
-                                            label="Month Selector"
+                                            // label="Month Selector"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={10}>Last 12 Months</MenuItem>
@@ -55,12 +55,12 @@ function AgentRating() {
                                 <label>Select By Month</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="ByMonth">By Month</InputLabel>
+                                        {/* <InputLabel id="ByMonth">By Month</InputLabel> */}
                                         <Select
                                             labelId="ByMonth"
                                             id="Month"
                                             value={bymonth}
-                                            label="By Month"
+                                            // label="By Month"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={10}>By Month</MenuItem>
@@ -74,12 +74,12 @@ function AgentRating() {
                                 <label>Select Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="SurveyName">Survey Name</InputLabel>
+                                        {/* <InputLabel id="SurveyName">Survey Name</InputLabel> */}
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
                                             value={surveyname}
-                                            label="Survey Name"
+                                            // label="Survey Name"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={10}>Customer Satisfaction Score</MenuItem>

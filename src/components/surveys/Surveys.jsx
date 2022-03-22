@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import SurveyTable from './SurveyTable/SurveyTable';
 //import { color } from '@mui/system';
 import Card from '@mui/material/Card';
-//import CardContent from '@mui/material/CardContent';
+import CardContent from '@mui/material/CardContent';
 import NewSurvey from '../newsurvey/NewSurvey';
 
 function Surveys() {
@@ -169,12 +169,9 @@ function Surveys() {
             }
             
                
-                    {surveyList}
-                   {newSurveyForm}
-                   
-            
-
-
+                {surveyList}
+                {newSurveyForm}
+ 
         </div>
     )
 }

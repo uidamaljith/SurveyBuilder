@@ -235,11 +235,12 @@ function Dashboard() {
     }
     return (
         <div className='content-container dashboard'>
-             <button onClick={onBackClick} className="back-button">
-                <ArrowBackIcon />
-            </button>
+             
             {!viewTrend &&             <>
             <div className='section-header'>
+            <button onClick={onBackClick} className="back-button">
+                <ArrowBackIcon />
+            </button>
                 <h2>Dashboard</h2>
             </div>
             <div className="section-content">
@@ -251,12 +252,12 @@ function Dashboard() {
                                 <Box sx={{ minWidth: 300 }}>
                                     
                                     <FormControl fullWidth>
-                                        <InputLabel id="MonthSelector">Select a Period</InputLabel>
+                                        {/* <InputLabel id="MonthSelector">Select a Period</InputLabel> */}
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
                                             value={monthDetails}
-                                            label="Month Selector"
+                                            // label="Month Selector"
                                             onChange={handleChangeMonth}
                                         >
                                             <MenuItem value={12}>Last 12 Months</MenuItem>
@@ -271,12 +272,12 @@ function Dashboard() {
                                 <label>Survey Name</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
-                                        <InputLabel id="SurveyName">Select a Survey</InputLabel>
+                                        {/* <InputLabel id="SurveyName">Select a Survey</InputLabel> */}
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
                                             value={surveyId}
-                                            label="Survey Name"
+                                            // label="Survey Name"
                                             onChange={handleChangeSurvey}
                                         >
                                             {
@@ -293,17 +294,17 @@ function Dashboard() {
                     
 
             </div>
-            <div className="section-content">
+            <div className="section-content ">
               
                 <TabsUnstyled defaultValue={0}>
                     <TabsList>
                         <Tab>Overview</Tab>
                         <Tab>Questions</Tab>
                     </TabsList>
-                    <TabPanel value={0}>
+                    <TabPanel value={0} className="overview-tab">
                         {renderOverview()}
                     </TabPanel>
-                    <TabPanel value={1}>
+                    <TabPanel value={1} className="question-tab">
                         <QuestionsTable data={questionsDetails}></QuestionsTable>
                     </TabPanel>
 

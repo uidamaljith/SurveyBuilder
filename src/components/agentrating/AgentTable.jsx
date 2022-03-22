@@ -35,12 +35,12 @@ const rows: GridRowsProp[] = [
 
 const columns: GridColDef[] = [
   { field: "id", hide: true },
-  { field: "Sl", headerName: "#", flex: 1,maxWidth: 20, },
-  { field: "Agent", headerName: "Agent", flex: 1,minWidth: 400, },
-  { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150 },
-  { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
-  { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 150,},
-  { field: "Responses", headerName: "Responses",flex: 1,minWidth: 150,},
+  { field: "Sl", headerName: "#", flex: 1,maxWidth: 30, },
+  { field: "Agent", headerName: "Agent", flex: 1,minWidth: 300, },
+  { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100 },
+  { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
+  { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
+  { field: "Responses", headerName: "Responses",flex: 1,minWidth: 100,},
   
 ];
 
@@ -52,7 +52,7 @@ const columns: GridColDef[] = [
  function AgentTable() {
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 250, width: '100%' }}>
       
       <DataGrid rows={rows} columns={columns} id="AgentTble" />
      </div>
