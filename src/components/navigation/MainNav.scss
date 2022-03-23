@@ -6,22 +6,36 @@
     background-color: $primary-dark;
     height: $full;
     position: fixed;
+    
+    
     h1 {
         @include font-size(18px);
         font-family: $primary-font;
         color: rgba($theme-bright, 1);
         font-weight: normal;
         text-align: left;
-        line-height: 1.7;
+        
         text-transform: uppercase;
         padding: $dpadding $dpadding*2;
+        margin-top: 20px;
+        @include flexbox();
+        @include flex-direction(row);
+        @include align-items(center);
+        img{
+            width: 50px;
+        }
+        span{
+            line-height: 1;
+        }
     }
     ul{
         // padding: $null $dpadding*2;
+        margin:0px;
+        margin-top: 20px;
         li{
             
             a{
-                padding: $dpadding*3 $dpadding*2;
+                padding: $dpadding*2 $dpadding*2;
                 @include font-size(14px);
                 font-family: $primary-font;
                 color: rgba($theme-bright, 1);

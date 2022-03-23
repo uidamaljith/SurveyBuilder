@@ -6,7 +6,7 @@
             @include flexbox();
             @include flex-direction(row);
             @include justify-content(space-between);
-            margin-top: $dmargin*4 !important;
+            // margin-top: $dmargin*4 !important;
             margin-bottom: $dmargin*4 !important;
             h2 {
                 @include font-size(20px);
