@@ -16,7 +16,7 @@
         &.survey-primary{
             @include justify-content(flex-start);
             @include flexbox();
-    @include flex-direction(row);
+            @include flex-direction(row);
             margin-bottom: 15px;
             .save-survey{
                 margin-left: auto;
