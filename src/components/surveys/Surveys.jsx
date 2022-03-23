@@ -15,8 +15,8 @@ function Surveys() {
     const urlBase = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
     const [formData,setFormData] = useState({
         "surveyName": '', 
-        "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.',
-        "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
+        "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”',
+        "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
         "default":false, 
         "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
     });
@@ -28,8 +28,8 @@ function Surveys() {
         setnewSurvey(false);
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
-            "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”', 
+            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })
@@ -72,8 +72,8 @@ function Surveys() {
 
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
-            "closingMessage": 'Thank you for taking the time to complete the survey. We value your opinion. By pressing the numbers on your keypad, please rate on a scale of 1 to 5 where 1 is poor and 5 is excellent. If you would like to have the question repeated, press *.', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”', 
+            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })

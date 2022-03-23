@@ -39,14 +39,14 @@ function AgentRating() {
                                         <Select
                                             labelId="MonthSelector"
                                             id="Month"
-                                            value={monthselector}
+                                            value={12}
                                             // label="Month Selector"
                                             onChange={handleChange}
                                         >
-                                            <MenuItem value={10}>Last 12 Months</MenuItem>
-                                            <MenuItem value={20}>Last 6 Months</MenuItem>
-                                            <MenuItem value={30}>Last 3 Months</MenuItem>
-                                            <MenuItem value={30}>Last 1 Months</MenuItem>
+                                            <MenuItem value={12}>Last 12 Months</MenuItem>
+                                            <MenuItem value={6}>Last 6 Months</MenuItem>
+                                            <MenuItem value={3}>Last 3 Months</MenuItem>
+                                            <MenuItem value={1}>Last 1 Months</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -59,7 +59,7 @@ function AgentRating() {
                                         <Select
                                             labelId="ByMonth"
                                             id="Month"
-                                            value={bymonth}
+                                            value={10}
                                             // label="By Month"
                                             onChange={handleChange}
                                         >
@@ -78,7 +78,7 @@ function AgentRating() {
                                         <Select
                                             labelId="surveyname"
                                             id="Survey"
-                                            value={surveyname}
+                                            value={10}
                                             // label="Survey Name"
                                             onChange={handleChange}
                                         >

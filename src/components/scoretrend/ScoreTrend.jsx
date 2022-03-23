@@ -143,13 +143,13 @@ const ScoreTrend = ({surveyDetails}) => {
       };
 
       const renderSelectOptions = () => {
-        let els = [];
+        let items = [];
       
         for (let i = 0; i < surveyDetails.length; i++) {
-          els.push(<MenuItem value={surveyDetails[i].id} key={i}>{surveyDetails[i].name}</MenuItem>);
+            items.push(<MenuItem value={surveyDetails[i].id} key={i}>{surveyDetails[i].name}</MenuItem>);
         }
       
-        return els;
+        return items;
       };
     return (
         <div className='content-container dashboard'>

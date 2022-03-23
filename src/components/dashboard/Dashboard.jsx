@@ -200,15 +200,15 @@ function Dashboard() {
                             </div>
                             </div>
                             <div className='score-card'>
-                                <h4>{surveyOverView[i].totalPositiveScore}</h4>
+                                <h4>{surveyOverView[i].totalPositiveScore}%</h4>
                                 <span>Positive</span>
                             </div>
                             <div className='score-card'>
-                                <h4>{surveyOverView[i].totalNeutralScore}</h4>
+                                <h4>{surveyOverView[i].totalNeutralScore}%</h4>
                                 <span>Neutral</span>
                             </div>
                             <div className='score-card'>
-                                <h4>{surveyOverView[i].totalNegativeScore}</h4>
+                                <h4>{surveyOverView[i].totalNegativeScore}%</h4>
                                 <span>Negative</span>
                             </div>
                             <div className='score-card'>
