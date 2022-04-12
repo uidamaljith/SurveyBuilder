@@ -94,7 +94,7 @@ const TabsList = styled(TabsListUnstyled)`
 
 
 
-const ScoreTrend = ({surveyDetails}) => {
+const ScoreTrend = (props) => {
 
     const [monthselector, setMonthselector] = React.useState('12');
     const [surveyname, setSurveyname] = React.useState('');
@@ -145,8 +145,8 @@ const ScoreTrend = ({surveyDetails}) => {
       const renderSelectOptions = () => {
         let items = [];
       
-        for (let i = 0; i < surveyDetails.length; i++) {
-            items.push(<MenuItem value={surveyDetails[i].id} key={i}>{surveyDetails[i].name}</MenuItem>);
+        for (let i = 0; i < props.surveyDetails.length; i++) {
+            items.push(<MenuItem value={props.surveyDetails[i].id} key={i}>{props.surveyDetails[i].name}</MenuItem>);
         }
       
         return items;
@@ -154,13 +154,13 @@ const ScoreTrend = ({surveyDetails}) => {
     return (
         <div className='content-container dashboard'>
             <div className='section-header'>
-                <h2>Dashboard</h2>
+                <h2>Trend</h2>
             </div>
             <div className="section-content">
                 
                         <div className="dashboard-filter">
                             <div className="form-field-group">
-                                <label>Month Selector</label>
+                                <label>Time Period</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         {/* <InputLabel id="MonthSelector">Month Selector</InputLabel> */}
@@ -168,7 +168,7 @@ const ScoreTrend = ({surveyDetails}) => {
                                             labelId="MonthSelector"
                                             id="Month"
                                             value={monthselector}
-                                            label="Month Selector"
+                                           // label="Month Selector"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={12}>Last 12 Months</MenuItem>
@@ -180,7 +180,7 @@ const ScoreTrend = ({surveyDetails}) => {
                                 </Box>
                             </div>
                             <div className="form-field-group">
-                                <label>By Month</label>
+                                <label>Trend</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     <FormControl fullWidth>
                                         {/* <InputLabel id="ByMonth">By Month</InputLabel> */}
@@ -188,11 +188,11 @@ const ScoreTrend = ({surveyDetails}) => {
                                             labelId="ByMonth"
                                             id="Month"
                                             value={bymonth}
-                                            label="By Month"
+                                            //label="By Month"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={'month'}>By Month</MenuItem>
-                                            <MenuItem value={'Quater'}> By Quater</MenuItem>
+                                            <MenuItem value={'Quater'}> By Quarter</MenuItem>
                                             <MenuItem value={'Half'}>By Half Yearly</MenuItem>
                                         </Select>
                                     </FormControl>
@@ -207,7 +207,7 @@ const ScoreTrend = ({surveyDetails}) => {
                                             labelId="surveyname"
                                             id="Survey"
                                             value={surveyId}
-                                            label="Survey Name"
+                                            //label="Survey Name"
                                             onChange={handleChange}
                                         >
                                             {

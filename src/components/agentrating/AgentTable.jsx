@@ -21,12 +21,12 @@ const rows: GridRowsProp[] = [
     
   },
   { id: 2, 
-    Sl:1,
+    Sl:2,
     Agent: "Anna Johnson", 
-    Positive:"85%",
-    Avarage:"10%",
+    Positive:"75%",
+    Avarage:"20%",
     Negative:"5%",
-    Responses:"1,000",
+    Responses:"800",
     
   },
   

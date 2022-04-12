@@ -49,10 +49,11 @@ const columns: GridColDef[] = [
  const QuestionsTable = ({data}) => {
   const [pageSize, setPageSize] = React.useState(5);
   const row = [];
-   data.map((item,index)=>{
+   data.map((item,index) => {
     if (!row[index]) row[index] = [];
-    item.responses.map((element,i)=>{
+    item.responses.map((element,i) => {
       //eval('var row' + index+1 + '=[]');
+      if(element){
         row[index].push({ id: element.questionId, 
           SL:i+1,
           Question: element.question, 
@@ -63,6 +64,7 @@ const columns: GridColDef[] = [
           Responses:element.totalResponse,
           
         })
+      }
      })
      console.log(row[index]);
 
@@ -74,7 +76,7 @@ const columns: GridColDef[] = [
     for (let i = 0; i < data.length; i++) {
       els.push(
         <div>
-          <h3> Survey #{i+1}</h3>
+          <h3> {data[i].surveyName}</h3>
           <Card component="form" noValidate autoComplete="off">
             <CardContent>
 
@@ -94,8 +96,11 @@ const columns: GridColDef[] = [
         
       );
     }
-  
-    return els;
+    if(els.length > 0){
+      return els;
+    }else{
+        return <span>No data available.</span>
+    }
   };
 
   return (

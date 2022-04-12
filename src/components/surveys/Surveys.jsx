@@ -28,8 +28,8 @@ function Surveys() {
         setnewSurvey(false);
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”', 
-            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.', 
+            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })
@@ -72,8 +72,8 @@ function Surveys() {
 
         setFormData({
             "surveyName": '', 
-            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”', 
-            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
+            "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.', 
+            "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
             "default":false, 
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
         })

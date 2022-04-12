@@ -1,17 +1,10 @@
 import React,{ useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {Link} from 'react-router-dom';
-
 import { styled } from '@mui/system';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabsListUnstyled from '@mui/base/TabsListUnstyled';
@@ -109,10 +102,11 @@ function Dashboard() {
         console.log(event.target.value);
     };
     useEffect(() => {
-        fetchData(surveyId,monthDetails);
+        fetchQuestionData(surveyId,monthDetails);
+        fetchOverviewData(surveyId,monthDetails);
     }, [surveyId,monthDetails]);
     const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
-    const fetchQuestionsData = async () => {
+    const fetchAllSurveyData = async () => {
         const surveyUrl = `${baseUrl}getAllSurveyData`
         try {
             const response = await fetch(surveyUrl);
@@ -132,8 +126,13 @@ function Dashboard() {
             console.log("error", error);
         }
     };
-    const fetchOverviewData = async () => {
-        const surveyUrl = `${baseUrl}dashboardGetOverview`
+    const fetchOverviewData = async (surveyId,month) => {
+        let surveyUrl = '';
+        if(surveyId === '' || surveyId === '1'){
+            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}`;
+        }else{
+            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}`;
+        }
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
@@ -144,13 +143,13 @@ function Dashboard() {
             console.log("error", error);
         }
     };
-    useEffect(() => {
-        fetchOverviewData();
-        fetchQuestionsData();
-      }, []);
-
-    const fetchData = async (surveyId,month) => {
-        const url = `${baseUrl}dashboardGetQuestion/${surveyId}?month=${month}`;
+    const fetchQuestionData = async (surveyId,month) => {
+        let url = '';
+        if(surveyId === '' || surveyId === '1'){
+             url = `${baseUrl}dashboardGetQuestion/?month=${month}`;
+        }else{
+             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}`;
+        }
         try {
             const response = await fetch(url);
             const json = await response.json();
@@ -161,9 +160,11 @@ function Dashboard() {
         }
     };
     useEffect(() => {
-        fetchData('','12');
+        fetchOverviewData('1','12');
+        fetchAllSurveyData();
+        fetchQuestionData('1','12');
       }, []);
-      const showTrend = () =>{
+    const showTrend = () =>{
         setViewTrend(true);
       }
       const onBackClick = () =>{
@@ -195,7 +196,7 @@ function Dashboard() {
                                 {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
                                 {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
                                 <div className='score-card'>
-                                <h4>{surveyOverView[i].score}</h4>
+                                <h4>{surveyOverView[i].score}%</h4>
                                 <span>Score</span>
                             </div>
                             </div>
@@ -227,8 +228,12 @@ function Dashboard() {
             }
 
         }
-      
-        return els;
+        if(els.length > 0){
+            return els;
+        }else{
+            return <span>No data available.</span>
+        }
+
       };
       let scoretrend;
     if (loading) {
@@ -250,7 +255,7 @@ function Dashboard() {
                         <div className="dashboard-filter">
                             <div className="form-field-group">
                                 
-                                <label>Month Selector</label>
+                                <label>Time Period</label>
                                 <Box sx={{ minWidth: 300 }}>
                                     
                                     <FormControl fullWidth>
