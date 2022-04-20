@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./newsurvey.scss";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -7,7 +7,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -17,11 +16,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { v4 as uuidv4 } from "uuid";
 const NewSurvey = (props) => {
-  const [score, setScore] = React.useState("");
-  const [scale, setScale] = React.useState("");
-  const [surveyNameValid, setSurveyNameValid] = React.useState(false);
-  const [welcomeMessageValid, setWelcomeMessageValid] = React.useState(false);
-  const [closingMessageValid, setClosingMessageValid] = React.useState(false);
+  const [is_nps, setNps] = React.useState(false);
   const [questionValues, setQuestionValues] = React.useState(
     props.formValue.Questions
   );
@@ -31,7 +26,6 @@ const NewSurvey = (props) => {
     welcomeMessageError: "",
     closingMessageError: "",
   });
-  const [requiredValidation, setRequiredValidation] = React.useState(true);
   const [validationStatus, setValidationStatus] = React.useState(true);
   const checkValidation = () => {
     //let errors = validation;
@@ -80,7 +74,29 @@ const NewSurvey = (props) => {
   let handleChange = (i, e) => {
     let newFormValues = [...questionValues];
     newFormValues[i][e.target.name] = e.target.value;
-    setQuestionValues(newFormValues);
+    if(e.target.value === "NPS" && i === 0){
+      setNps(true);
+      newFormValues = newFormValues.slice(0,1);
+      setQuestionValues(newFormValues);
+      setFormValues((prevSurvey) => {
+        return {
+          ...prevSurvey,
+          Questions: newFormValues,
+        };
+      }); 
+    }else{
+      setNps(false);
+      setQuestionValues(newFormValues);
+      setFormValues((prevSurvey) => {
+        return {
+          ...prevSurvey,
+          Questions: questionValues,
+        };
+      });
+    }
+
+  
+
     if (!e.target.value) {
       setValidation((prevValidation) => {
         return {
@@ -89,12 +105,7 @@ const NewSurvey = (props) => {
         };
       });
     }
-    setFormValues((prevSurvey) => {
-      return {
-        ...prevSurvey,
-        Questions: questionValues,
-      };
-    });
+
   };
   let addFormFields = () => {
     if (props.editStatus) {
@@ -174,12 +185,10 @@ const NewSurvey = (props) => {
   };
   let handleFormChange = (event) => {
     const { name, value } = event.target;
-    //setRequiredValidation(false);
     // eslint-disable-next-line default-case
     switch (name) {
       case "surveyName":
         if (value !== "") {
-          //setSurveyNameValid(false);
           setValidation((prevValidation) => {
             return {
               ...prevValidation,
@@ -190,7 +199,6 @@ const NewSurvey = (props) => {
         break;
       case "welcomeMessage":
         if (value !== "") {
-          //setSurveyNameValid(false);
           setValidation((prevValidation) => {
             return {
               ...prevValidation,
@@ -201,7 +209,6 @@ const NewSurvey = (props) => {
         break;
       case "closingMessage":
         if (value !== "") {
-          //setSurveyNameValid(false);
           setValidation((prevValidation) => {
             return {
               ...prevValidation,
@@ -278,6 +285,7 @@ const NewSurvey = (props) => {
                 value={formValues.welcomeMessage}
                 fullWidth
                 variant="outlined"
+                disabled="true"
               />
               <span className="text-danger">
                 {validation.welcomeMessageError}
@@ -292,109 +300,111 @@ const NewSurvey = (props) => {
       </div>
       {questionValues.map((element, index) => (
         <div className="section-content">
-          {index == 1 && <h2>Additional Question</h2>}
-
-          <Card component="form" noValidate autoComplete="off">
-            <div className="icon-with-form form-inline" key={index}>
-              <div className="icon ">
-                <div className="mover">
-                  {index > 0 && (
-                    <>
-                      {index > 1 && (
-                        <button
-                          onClick={(e) => reArrangeQuestions(e, index, true)}
-                        >
-                          <ArrowUpwardIcon />
-                        </button>
-                      )}
-                      {index + 1 < questionValues.length && (
-                        <button
-                          onClick={(e) => reArrangeQuestions(e, index, false)}
-                        >
-                          <ArrowDownwardIcon />
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-
-                <span>Q{index + 1}</span>
-
-                {index > 0 && (
-                  <button onClick={(e) => deleteQuestions(e, index)}>
-                    <DeleteIcon />
-                  </button>
-                )}
-              </div>
-
-              <div className="form-field-group text-question">
-                <label>Question</label>
-
-                <TextField
-                  id="QuestionName"
-                  name="question"
-                  variant="outlined"
-                  value={element.question}
-                  type="text"
-                  onChange={(e) => handleChange(index, e)}
-                />
-                <span className="text-danger">{!element.question && validation.questionNameError}</span>
-              </div>
-              <div className="form-field-group text-type">
-                <label>Question Type</label>
-                <Box sx={{ minWidth: 120 }}>
-                  <FormControl fullWidth>
-                    {/* <InputLabel id="Score">Score</InputLabel> */}
-                    <Select
-                      labelId="Score"
-                      id="demo-simple-select"
-                      name="questionType"
-                     // label="Score"
-                      value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':formValues.surveyName !== ''?element.questionType:'CSAT'}
-                      onChange={(e) => handleChange(index, e)}
-                    >
-                      {index < 1 && (
-                        <MenuItem value="CSAT">
-                          Customer Satisfaction Score
-                        </MenuItem>
-                      )}
-                      {index < 1 && (
-                        <MenuItem value="CES">Customer Effort Score</MenuItem>
-                      )}
-                      {index < 1 && (
-                        <MenuItem value="NPS">Net Promoter Score</MenuItem>
-                      )}
-                      {index >= 1 && (
-                        <MenuItem value="PS">Point Scale</MenuItem>
-                      )}
-                    </Select>
-                  </FormControl>
-                </Box>
-              </div>
-              <div className="form-field-group text-scale">
-                <label>Message</label>
-                <Box sx={{ maxWidth: 120 }}>
-                  <FormControl fullWidth>
-                    {/* <InputLabel id="Scale">scale</InputLabel> */}
-                    <Select
-                      labelId="Scale"
-                      id="demo-simple-select"
-                      name="minScale"
-                      //label="scale"
-                      value="10"
-                      onChange={(e) => handleChange(index, e)}
-                    >
-                      <MenuItem value={10}>1-5</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </div>
-            </div>
-          </Card>
+          {(index === 1 && (questionValues[0].questionType !=='NPS')) &&  <h2>Additional Question</h2>}
+          {(index ===0 || (!is_nps && questionValues[0].questionType !=='NPS' )) && 
+                      <Card component="form" noValidate autoComplete="off">
+                      <div className="icon-with-form form-inline" key={index}>
+                        <div className="icon ">
+                          <div className="mover">
+                            {index > 0 && (
+                              <>
+                                {index > 1 && (
+                                  <button
+                                    onClick={(e) => reArrangeQuestions(e, index, true)}
+                                  >
+                                    <ArrowUpwardIcon />
+                                  </button>
+                                )}
+                                {index + 1 < questionValues.length && (
+                                  <button
+                                    onClick={(e) => reArrangeQuestions(e, index, false)}
+                                  >
+                                    <ArrowDownwardIcon />
+                                  </button>
+                                )}
+                              </>
+                            )}
+                          </div>
+          
+                          <span>Q{index + 1}</span>
+          
+                          {index > 0 && (
+                            <button onClick={(e) => deleteQuestions(e, index)}>
+                              <DeleteIcon />
+                            </button>
+                          )}
+                        </div>
+          
+                        <div className="form-field-group text-question">
+                          <label>Question</label>
+          
+                          <TextField
+                            id="QuestionName"
+                            name="question"
+                            variant="outlined"
+                            value={element.question}
+                            type="text"
+                            onChange={(e) => handleChange(index, e)}
+                          />
+                          <span className="text-danger">{!element.question && validation.questionNameError}</span>
+                        </div>
+                        <div className="form-field-group text-type">
+                          <label>Question Type</label>
+                          <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                              {/* <InputLabel id="Score">Score</InputLabel> */}
+                              <Select
+                                labelId="Score"
+                                id="demo-simple-select"
+                                name="questionType"
+                               // label="Score"
+                                value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':element.questionType?element.questionType:'CSAT'}
+                                onChange={(e) => handleChange(index, e)}
+                                disabled="true"
+                              >
+                                {index < 1 && (
+                                  <MenuItem value="CSAT">
+                                    Customer Satisfaction Score
+                                  </MenuItem>
+                                )}
+                                {index < 1 && (
+                                  <MenuItem value="CES">Customer Effort Score</MenuItem>
+                                )}
+                                {index < 1 && (
+                                  <MenuItem value="NPS">Net Promoter Score</MenuItem>
+                                )}
+                                {index >= 1 && (
+                                  <MenuItem value="PS">Point Scale</MenuItem>
+                                )}
+                              </Select>
+                            </FormControl>
+                          </Box>
+                        </div>
+                        <div className="form-field-group text-scale">
+                          <label>Scale</label>
+                          <Box sx={{ maxWidth: 120 }}>
+                            <FormControl fullWidth>
+                              {/* <InputLabel id="Scale">scale</InputLabel> */}
+                              <Select
+                                labelId="Scale"
+                                id="demo-simple-select"
+                                name="minScale"
+                                //label="scale"
+                                value="10"
+                                onChange={(e) => handleChange(index, e)}
+                              >
+                                <MenuItem value={10}>1-5</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Box>
+                        </div>
+                      </div>
+                    </Card>
+          }
           
         </div>
       ))}
-      <div className="section-content add-question">
+      {(!is_nps && questionValues[0].questionType !=='NPS') && <div className="section-content add-question">
         <Card component="form" noValidate autoComplete="off">
           {questionValues.length < 5 && (
             <Button variant="outlined" onClick={() => addFormFields()}>
@@ -402,7 +412,7 @@ const NewSurvey = (props) => {
             </Button>
           )}
         </Card>
-      </div>
+      </div>}
       <div className="section-header">
         <h2>Closing Message</h2>
       </div>
@@ -430,7 +440,7 @@ const NewSurvey = (props) => {
         </Card>
       </div>
       <div className="section-footer">
-        <Button variant="contained" onClick={submitNewSurvey}>
+        <Button variant="contained" onClick={submitNewSurvey} disabled="true">
           Save
         </Button>
       </div>
