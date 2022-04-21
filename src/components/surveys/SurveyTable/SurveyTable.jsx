@@ -148,6 +148,7 @@ const SurveyTable = (props) => {
             rowsPerPageOptions={[5, 10, 20]}
             rows={props.data}
             columns={columns}
+            
           />
         </div>
       </CardContent>

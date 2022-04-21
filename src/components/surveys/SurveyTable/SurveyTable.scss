@@ -1,18 +1,36 @@
 @import "../../../scss/master.scss";
-.surveys {
-  .section-header {
-    h2 {
-      @include font-size(20px);
-      font-family: $primary-font;
-      color: rgba(#4d4f5c, 1);
-      font-weight: bold;
-      text-align: left;
-      line-height: 1.7;
+
+.surveys{
+
+    .section-header{
+        margin-bottom: 10px !important;
+        h2 {
+            @include font-size(16px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+            
+        }
+        &.survey-primary{
+            h2{
+                @include font-size(20px); 
+            }
+        }
+        .back-button{
+            svg{
+                fill:rgba(#4d4f5c, 1);
+            }
+        }
     }
-    .back-button {
-      svg {
-        fill: rgba(#4d4f5c, 1);
-      }
+    .section-content{
+        margin-top: 0px;
+        h2 {
+            @include font-size(16px);
+            margin-bottom: 10px !important;
+        }
+
     }
   }
   .section-content {
@@ -36,5 +54,10 @@
         }
       }
     }
-  }
+
+
+    // .set-height{
+    //     min-height:10px;
+    // }
 }
+
