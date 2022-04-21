@@ -134,9 +134,9 @@ const SurveyTable = (props) => {
   ];
   const handleEditClick = (data) => (event) => {
     event.stopPropagation();
-    console.log(data.id);
+    console.log(data);
     //apiRef.current.setRowMode(id, 'edit');
-    props.onEdit(data.id);
+    props.onEdit(data.id,data.row.canUpdate);
   };
   return (
     <Card component="form" noValidate autoComplete="off">

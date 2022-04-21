@@ -66,7 +66,9 @@ const NewSurvey = (props) => {
     return true;
   };
   React.useEffect(() => {}, [formValues]);
-
+  React.useEffect(() => {
+    setValidationStatus(props.formValue.canUpdate);
+  },[]);
   //   useEffect(() => {
   //     checkValidation();
   //   }, [formValues]);
@@ -144,7 +146,9 @@ const NewSurvey = (props) => {
     event.preventDefault();
     if (checkValidation()) {
       // alert(JSON.stringify(formValues));
+      delete formValues["canUpdate"];
       props.onAdd(JSON.stringify(formValues));
+      
     }
   };
   let deleteQuestions = (event, i) => {
@@ -237,16 +241,19 @@ const NewSurvey = (props) => {
         <button onClick={props.onBackClick} className="back-button">
           <ArrowBackIcon />
         </button>
-        <h2>New Survey</h2>
+        {props.editStatus?<h2>Edit Survey</h2>:<h2>New Survey</h2>}
+        
+       {validationStatus &&
         <Button
           disabled={!validationStatus}
           type="submit"
           value="Submit"
           variant="contained"
-          className="save-survey"
+          className={`save-survey ${!validationStatus ? "disabled-element-color " : ""}`}
         >
           Save
         </Button>
+       } 
       </div>
       <div className="section-content survey-name">
         <Card component="form" noValidate autoComplete="off">
@@ -260,6 +267,8 @@ const NewSurvey = (props) => {
               variant="outlined"
               value={formValues.surveyName}
               onChange={(e) => handleFormChange(e)}
+              disabled={!validationStatus}
+              
             />
             <span className="text-danger">{validation.surveyNameError}</span>
           </CardContent>
@@ -285,7 +294,7 @@ const NewSurvey = (props) => {
                 value={formValues.welcomeMessage}
                 fullWidth
                 variant="outlined"
-                disabled="true"
+                disabled={!validationStatus}
               />
               <span className="text-danger">
                 {validation.welcomeMessageError}
@@ -306,7 +315,7 @@ const NewSurvey = (props) => {
                       <div className="icon-with-form form-inline" key={index}>
                         <div className="icon ">
                           <div className="mover">
-                            {index > 0 && (
+                            {(index > 0 && validationStatus) && (
                               <>
                                 {index > 1 && (
                                   <button
@@ -315,7 +324,7 @@ const NewSurvey = (props) => {
                                     <ArrowUpwardIcon />
                                   </button>
                                 )}
-                                {index + 1 < questionValues.length && (
+                                {(index + 1 < questionValues.length && validationStatus) && (
                                   <button
                                     onClick={(e) => reArrangeQuestions(e, index, false)}
                                   >
@@ -328,7 +337,7 @@ const NewSurvey = (props) => {
           
                           <span>Q{index + 1}</span>
           
-                          {index > 0 && (
+                          {(index > 0 && validationStatus)&& (
                             <button onClick={(e) => deleteQuestions(e, index)}>
                               <DeleteIcon />
                             </button>
@@ -345,6 +354,8 @@ const NewSurvey = (props) => {
                             value={element.question}
                             type="text"
                             onChange={(e) => handleChange(index, e)}
+                            disabled={!validationStatus}
+                            className="save-survey"
                           />
                           <span className="text-danger">{!element.question && validation.questionNameError}</span>
                         </div>
@@ -360,7 +371,8 @@ const NewSurvey = (props) => {
                                // label="Score"
                                 value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':element.questionType?element.questionType:'CSAT'}
                                 onChange={(e) => handleChange(index, e)}
-                                disabled="true"
+                                disabled={!validationStatus}
+                                className={`${!validationStatus ? "disabled-element-color " : ""}`}
                               >
                                 {index < 1 && (
                                   <MenuItem value="CSAT">
@@ -392,6 +404,8 @@ const NewSurvey = (props) => {
                                 //label="scale"
                                 value="10"
                                 onChange={(e) => handleChange(index, e)}
+                                disabled={!validationStatus}
+                                className={`${!validationStatus ? "disabled-element-color " : ""}`}
                               >
                                 <MenuItem value={10}>1-5</MenuItem>
                               </Select>
@@ -404,10 +418,10 @@ const NewSurvey = (props) => {
           
         </div>
       ))}
-      {(!is_nps && questionValues[0].questionType !=='NPS') && <div className="section-content add-question">
+      {(!is_nps && questionValues[0].questionType !=='NPS' && validationStatus) && <div className="section-content add-question">
         <Card component="form" noValidate autoComplete="off">
           {questionValues.length < 5 && (
-            <Button variant="outlined" onClick={() => addFormFields()}>
+            <Button variant="outlined" onClick={() => addFormFields()} disabled={!validationStatus}>
               <span>+</span>ADD ADDITIONAL QUESTION
             </Button>
           )}
@@ -430,6 +444,7 @@ const NewSurvey = (props) => {
                 value={formValues.closingMessage}
                 fullWidth
                 variant="outlined"
+                disabled={!validationStatus}
               />
               <span className="text-danger">
               {validation.closingMessageError}
@@ -439,11 +454,11 @@ const NewSurvey = (props) => {
           </div>
         </Card>
       </div>
-      <div className="section-footer">
-        <Button variant="contained" onClick={submitNewSurvey} disabled="true">
-          Save
-        </Button>
-      </div>
+    {validationStatus && <div className="section-footer">
+      <Button variant="contained" onClick={submitNewSurvey} disabled={!validationStatus}>
+        Save
+      </Button>
+    </div>}
     </form>
   );
 };

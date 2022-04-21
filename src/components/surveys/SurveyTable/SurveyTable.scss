@@ -1,4 +1,5 @@
 @import "../../../scss/master.scss";
+
 .surveys{
 
     .section-header{
@@ -29,30 +30,34 @@
             @include font-size(16px);
             margin-bottom: 10px !important;
         }
+
+    }
+  }
+  .section-content {
+    margin-top: 0px;
+  }
+
+  > form {
+    .MuiCardContent-root {
+      padding: 0px !important;
+      .css-jgzxgq-MuiDataGrid-root {
+        // border-radius: 0px;
+        border: none;
+      }
+    }
+    :not(.survey-name) {
+      .MuiCardContent-root {
+        padding: 15px !important;
+        .css-jgzxgq-MuiDataGrid-root {
+          // border-radius: 0px;
+          border: none;
+        }
+      }
     }
 
-    > form{
-        .MuiCardContent-root{
-            padding: 0px !important;
-            .css-jgzxgq-MuiDataGrid-root{
-                // border-radius: 0px;
-                border: none;
-            }
-        }
-        :not(.survey-name){
-            .MuiCardContent-root{
-                padding: 15px !important;
-                .css-jgzxgq-MuiDataGrid-root{
-                    // border-radius: 0px;
-                    border: none;
-                }
-            }
-        }
-
-        
-    }
 
     // .set-height{
     //     min-height:10px;
     // }
 }
+
