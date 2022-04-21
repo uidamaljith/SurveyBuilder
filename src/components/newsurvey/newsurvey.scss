@@ -1,210 +1,212 @@
 @import "../../scss/master.scss";
 
-.content-container{
-    padding-bottom: $dpadding*4;
-    .MuiPaper-root{
-        margin-bottom: 20px;
+.content-container {
+  padding-bottom: $dpadding * 4;
+  .MuiPaper-root {
+    margin-bottom: 20px;
+  }
+  .section-header {
+    padding: 0px;
+    margin-bottom: $null;
+    .back-button {
+      background-color: transparent;
+      border: none;
+      padding: $null;
     }
-    .section-header{
-        padding: 0px;
-        margin-bottom:$null ;
-        .back-button{
-            background-color: transparent;
-            border: none;
-            padding: $null;
-        }
-        &.survey-primary{
-            @include justify-content(flex-start);
-            @include flexbox();
-            @include flex-direction(row);
-            margin-bottom: 15px;
-            .save-survey{
-                margin-left: auto;
-            }
-        }
+    &.survey-primary {
+      @include justify-content(flex-start);
+      @include flexbox();
+      @include flex-direction(row);
+      margin-bottom: 15px;
+      .save-survey {
+        margin-left: auto;
+      }
     }
+  }
 }
 
 .section-content {
-    margin-bottom: 0px;
-    &.add-question{
-        text-align: center;
-        margin-top: 15px;
-        .MuiPaper-root {
-            padding: $dpadding * 4;
-            button{
-                border: thin solid #009688;
-                color: #009688;
-                span{
-                    @include font-size(28px);
-                    line-height: 1.7;
-                    margin-right: 10px;
-                }
-            }
-
+  margin-bottom: 0px;
+  &.add-question {
+    text-align: center;
+    margin-top: 15px;
+    .MuiPaper-root {
+      padding: $dpadding * 4;
+      button {
+        border: thin solid #009688;
+        color: #009688;
+        span {
+          @include font-size(28px);
+          line-height: 1.7;
+          margin-right: 10px;
         }
+      }
     }
-    &.survey-name{
-        label {
-            margin-bottom: 8px;
-            display: inline-block;
-            @include font-size(14px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: bold;
-            text-align: left;
-            line-height: 1.7;
-        }
+  }
+  &.survey-name {
+    label {
+      margin-bottom: 8px;
+      display: inline-block;
+      @include font-size(14px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: bold;
+      text-align: left;
+      line-height: 1.7;
     }
-    .MuiFormControl-root{
-        width: $full;
-    }
+  }
+  .MuiFormControl-root {
+    width: $full;
+  }
 }
 
 .section-footer {
-    
+  width: $full;
+  margin-bottom: $dmargin * 4;
+  text-align: right;
+  .MuiPaper-root {
     width: $full;
-    margin-bottom: $dmargin*4;
-    text-align: right;
-    .MuiPaper-root{
-        width: $full;
-        // text-align: right;
-    }
-    button{
-        background-color:#009688;
-        @include align-self(center);
-    }
+    // text-align: right;
+  }
+  button {
+    background-color: #009688 !important;
+    @include align-self(center);
+  }
 }
-.MuiDataGrid-footerContainer{
-    display: none !important
+.MuiDataGrid-footerContainer {
+  display: none !important;
 }
 
-.css-46bh2p-MuiCardContent-root{
-    padding: 15px !important;
+.css-46bh2p-MuiCardContent-root {
+  padding: 15px !important;
+}
+.disabled-element-color {
+  background-color: #f8f7f7;
 }
 
+.Mui-disabled {
+  background-color: #f8f7f7;
+}
 .icon-with-form {
+  @include flexbox();
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  // @include align-items(center);
+  height: $full;
+  .icon {
+    height: auto;
+    @include flex(0);
+    @include flex-direction(column);
     @include flexbox();
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
-    // @include align-items(center);
+    @include align-items(center);
+    background-color: #f8f7f7;
+    padding: $dpadding * 2 $dpadding * 6;
+    border: 1px solid rgba(#ffffff, 1);
+    min-width: 100px;
+    .mover {
+      margin-top: 15px;
+    }
+    span {
+      @include font-size(28px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: bold;
+      text-align: left;
+      // line-height: 1.7;
+    }
+    button {
+      border: none;
+      background-color: transparent;
+      svg {
+        fill: #afafaf;
+      }
+      &:hover {
+        svg {
+          fill: #4d4f5c;
+        }
+      }
+    }
+    .mover {
+      @include flexbox();
+      @include flex-direction(row);
+      @include justify-content(space-between);
+    }
+    > svg {
+      margin-top: 15px;
+    }
+  }
+  .form-field-group {
     height: $full;
-    .icon {
-        height: auto;
-        @include flex(0);
-        @include flex-direction(column);
-        @include flexbox();
-        @include align-items(center);
-        background-color: #f8f7f7;
-        padding: $dpadding * 2 $dpadding * 6;
-        border: 1px solid rgba(#ffffff, 1);
-        min-width:100px;
-        .mover{
-            margin-top: 15px;
-        }
-        span {
-            @include font-size(28px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: bold;
-            text-align: left;
-            // line-height: 1.7;
-        }
-        button{
-            border: none;
-            background-color: transparent;
-            svg{
-                fill: #AFAFAF;
-            }
-            &:hover{
-                svg{
-                    fill: #4D4F5C;
-                } 
-            }
-            
-        }
-        .mover{
-            @include flexbox();
-            @include flex-direction(row);
-            @include justify-content(space-between);
-        }
-        > svg{
-           margin-top: 15px; 
-        }
+    @include flex(0);
+    padding: $dpadding * 4 10px;
+    @include flexbox();
+    @include flex-direction(column);
+    @include flex-wrap(wrap);
+
+    &:not(:first-child):not(:last-child) {
+      padding: $dpadding * 4 10px;
     }
-    .form-field-group {
-        height: $full;
-        @include flex(0);
-        padding: $dpadding * 4 10px;
-        @include flexbox();
-        @include flex-direction(column);
-        @include flex-wrap(wrap);
-
-        &:not(:first-child):not(:last-child){
-            padding: $dpadding * 4 10px;
-        }
-        &:last-child{
-            padding-right: 20px;
-        }
-        &:nth-child(2){
-            padding-left: 20px !important;
-        }
-
-        &.text-message{
-            @include flex(4);
-        }
-
-        &.text-question{
-            @include flex(4);
-            max-width: 50%;
-        }
-        &.text-type{
-            @include flex(2);
-        }
-        &.text-scale{
-            @include flex(0);
-        }
-
-
-        label {
-            margin-bottom: 8px;
-            display: inline-block;
-            @include font-size(14px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: bold;
-            text-align: left;
-            line-height: 1.7;
-        }
-        input {
-            // margin-bottom: 8px;
-            display: block;
-            @include font-size(14px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: normal;
-            text-align: left;
-            line-height: 1.7;
-            width: $full;
-        }
-        textarea {
-            margin-bottom: 8px;
-            display: inline-block;
-            @include font-size(14px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: normal;
-            text-align: left;
-            line-height: 1.7;
-            border: thin solid rgba(#000000, 0.3);
-            @include border-radius(4px);
-            resize: none;
-            padding: $dpadding * 2;
-            width: $full;
-        }
+    &:last-child {
+      padding-right: 20px;
     }
+    &:nth-child(2) {
+      padding-left: 20px !important;
+    }
+
+    &.text-message {
+      @include flex(4);
+    }
+
+    &.text-question {
+      @include flex(4);
+      max-width: 50%;
+    }
+    &.text-type {
+      @include flex(2);
+    }
+    &.text-scale {
+      @include flex(0);
+    }
+
+    label {
+      margin-bottom: 8px;
+      display: inline-block;
+      @include font-size(14px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: bold;
+      text-align: left;
+      line-height: 1.7;
+    }
+    input {
+      // margin-bottom: 8px;
+      display: block;
+      @include font-size(14px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: normal;
+      text-align: left;
+      line-height: 1.7;
+      width: $full;
+    }
+    textarea {
+      margin-bottom: 8px;
+      display: inline-block;
+      @include font-size(14px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: normal;
+      text-align: left;
+      line-height: 1.7;
+      border: thin solid rgba(#000000, 0.3);
+      @include border-radius(4px);
+      resize: none;
+      padding: $dpadding * 2;
+      width: $full;
+    }
+  }
 }
 
-.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
-    padding: 15.5px 14px;
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 15.5px 14px;
 }

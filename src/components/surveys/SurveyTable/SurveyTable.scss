@@ -1,43 +1,40 @@
 @import "../../../scss/master.scss";
-.surveys{
-
-    .section-header{
-        h2 {
-            @include font-size(20px);
-            font-family: $primary-font;
-            color: rgba(#4d4f5c, 1);
-            font-weight: bold;
-            text-align: left;
-            line-height: 1.7;
-        }
-        .back-button{
-            svg{
-                fill:rgba(#4d4f5c, 1);
-            }
-        }
+.surveys {
+  .section-header {
+    h2 {
+      @include font-size(20px);
+      font-family: $primary-font;
+      color: rgba(#4d4f5c, 1);
+      font-weight: bold;
+      text-align: left;
+      line-height: 1.7;
     }
-    .section-content{
-        margin-top: 0px;
+    .back-button {
+      svg {
+        fill: rgba(#4d4f5c, 1);
+      }
     }
+  }
+  .section-content {
+    margin-top: 0px;
+  }
 
-    > form{
-        .MuiCardContent-root{
-            padding: 0px !important;
-            .css-jgzxgq-MuiDataGrid-root{
-                // border-radius: 0px;
-                border: none;
-            }
-        }
-        :not(.survey-name){
-            .MuiCardContent-root{
-                padding: 15px !important;
-                .css-jgzxgq-MuiDataGrid-root{
-                    // border-radius: 0px;
-                    border: none;
-                }
-            }
-        }
-
-        
+  > form {
+    .MuiCardContent-root {
+      padding: 0px !important;
+      .css-jgzxgq-MuiDataGrid-root {
+        // border-radius: 0px;
+        border: none;
+      }
     }
+    :not(.survey-name) {
+      .MuiCardContent-root {
+        padding: 15px !important;
+        .css-jgzxgq-MuiDataGrid-root {
+          // border-radius: 0px;
+          border: none;
+        }
+      }
+    }
+  }
 }

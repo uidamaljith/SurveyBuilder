@@ -134,14 +134,14 @@ const SurveyTable = (props) => {
   ];
   const handleEditClick = (data) => (event) => {
     event.stopPropagation();
-    console.log(data.id);
+    console.log(data);
     //apiRef.current.setRowMode(id, 'edit');
-    props.onEdit(data.id);
+    props.onEdit(data.id,data.row.canUpdate);
   };
   return (
     <Card component="form" noValidate autoComplete="off">
       <CardContent>
-        <div style={{ height: 700, width: "100%" }}>
+        <div style={{ height: 700, width: "100%" }} className="set-height">
           <DataGrid
             pageSize={pageSize}
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

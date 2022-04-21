@@ -18,7 +18,8 @@ function Surveys() {
         "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”',
         "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know', 
         "default":false, 
-        "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
+        "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
+        "canUpdate":true
     });
     const showSurveyForm = () =>{ 
         setnewSurvey(true);
@@ -31,7 +32,8 @@ function Surveys() {
             "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.', 
             "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
             "default":false, 
-            "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
+            "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
+            "canUpdate":true
         })
     }
     const [surveyData, setSurveyData] = useState('');
@@ -48,6 +50,7 @@ function Surveys() {
             PrimaryMetric: surveyData.Questions[0].questionType,
             Created:new Date(surveyData.createdAt).toLocaleDateString("en-US"),
             Modified:new Date(surveyData.modifiedAt).toLocaleDateString("en-US"),
+            canUpdate:surveyData.canUpdate
             // Created:new Date(surveyData.createdAt).toJSON().slice(0,10).split('-').reverse().join('/'),
             // Modified:new Date(surveyData.modifiedAt).toJSON().slice(0,10).split('-').reverse().join('/'),
           }));
@@ -75,7 +78,8 @@ function Surveys() {
             "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.', 
             "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
             "default":false, 
-            "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}]
+            "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
+            "canUpdate":true
         })
         //fetchData();
     }
@@ -131,7 +135,7 @@ function Surveys() {
 
     };
 
-    const editSurvey = id => {
+    const editSurvey = (id,canUpdate) => {
     console.log(id);
     const url = `${urlBase}getSurveyDataById/${id}`;
     const fetchDataById = async () => {
@@ -147,7 +151,8 @@ function Surveys() {
                 "welcomeMessage": data.welcomeMessage, 
                 "closingMessage": data.closingMessage, 
                 "default":data.default, 
-                "Questions":data.Questions
+                "Questions":data.Questions,
+                "canUpdate":canUpdate
             });
             console.log(formData);
             showSurveyForm();
@@ -174,11 +179,8 @@ function Surveys() {
                     <Button variant="contained" onClick={showSurveyForm}>New Survey</Button>
                 </div>
             }
-            
-               
                 {surveyList}
                 {newSurveyForm}
- 
         </div>
     )
 }
