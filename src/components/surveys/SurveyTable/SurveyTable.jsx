@@ -141,13 +141,14 @@ const SurveyTable = (props) => {
   return (
     <Card component="form" noValidate autoComplete="off">
       <CardContent>
-        <div style={{ height: 700, width: "100%" }}>
+        <div style={{ height: 700, width: "100%" }} className="set-height">
           <DataGrid
             pageSize={pageSize}
             onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             rowsPerPageOptions={[5, 10, 20]}
             rows={props.data}
             columns={columns}
+            
           />
         </div>
       </CardContent>
