@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import ReactDOM from 'react-dom';
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 import logo from "../../assets/SurveyLogoSolo100.png";
 import SelectCompany from "../../assets/select-company.png";
@@ -27,9 +27,35 @@ function MainNav() {
     p: 4,
   };
 
+  const [modalBackDrop,setModalBackDrop] = React.useState(false);
+  const [company, setCompany] = React.useState('Select Company');
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  useEffect(() => {
+    if(!localStorage.companyDetails){
+        handleOpen();
+        setModalBackDrop(true);
+    }else{
+      let company = JSON.parse(localStorage.companyDetails)
+      setCompany(company.companyname)
+      setModalBackDrop(false);
+    }
+  }, []);
+  const handleOpen = () => {
+      setOpen(true)
+      if(localStorage.companyDetails){
+            console.log(JSON.parse(localStorage.companyDetails));
+        }
+    };
   const handleClose = () => setOpen(false);
+  const choseCompany = (event, companyName,companyCode) =>{
+    console.log(companyName);
+    console.log(companyCode);
+    setCompany(companyName)
+    localStorage.setItem("companyDetails",JSON.stringify({'companyname':companyName,'companycode':companyCode}))
+    setOpen(false)
+    setModalBackDrop(false);
+    window.location.reload(false);
+  }
   return (
     <div className="nav">
       <h1>
@@ -40,28 +66,33 @@ function MainNav() {
       <div className="mainnav">
         <ul>
           <li>
-            <Link to="/">Dashboard</Link>
+            {/* <Link className="active" to="/">Dashboard</Link> */}
+            <NavLink  to="/" activeClassName="selected">
+  Dashboard
+</NavLink>
           </li>
           <li>
-            <Link to="/Surveys">Surveys</Link>
+            {/* <Link to="/Surveys">Surveys</Link> */}
+            <NavLink  to="/Surveys" activeClassName="selected">
+  Surveys
+</NavLink>
           </li>
           <li>
-            <Link to="/AgentRating">Agent Rating</Link>
+            {/* <Link to="/AgentRating">Agent Rating</Link> */}
+            <NavLink  to="/AgentRating" activeClassName="selected">
+  Agent Rating
+</NavLink>
           </li>
-          {/* <li>
-                        <Link to="/NewSurvey">New Survey</Link>
-                    </li> */}
-          {/* <li>
-                        <Link to="/ScoreTrend">Score Trend</Link>
-                    </li> */}
         </ul>
+
 
         <Button onClick={handleOpen} className="select-company">
           <img src={SelectCompany} alt="" />
-          Select Company
+          {company}
         </Button>
         <Modal
           open={open}
+          hideBackdrop={modalBackDrop}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -74,20 +105,20 @@ function MainNav() {
             </h1>
             <Typography>Select Company</Typography>
             <div className="sc-card-container">
-              <Card component="form" noValidate autoComplete="off">
-                <Button className="select-company">PlacePay</Button>
+              <Card noValidate autoComplete="off">
+              <Button className="select-company" onClick={(e) => choseCompany(e, "PlacePay",'PPAY')}>PlacePay</Button>
               </Card>
               <Card component="form" noValidate autoComplete="off">
-                <Button className="select-company">PaySchools Central</Button>
+                <Button className="select-company" onClick={(e) => choseCompany(e, "PaySchools Central",'PSCH')}>PaySchools Central</Button>
               </Card>
               <Card component="form" noValidate autoComplete="off">
-                <Button className="select-company">SchoolPay</Button>
+                <Button className="select-company" onClick={(e) => choseCompany(e, "SchoolPay",'SPAY')}>SchoolPay</Button>
               </Card>
               <Card component="form" noValidate autoComplete="off">
-                <Button className="select-company">MerchantServices</Button>
+                <Button className="select-company" onClick={(e) => choseCompany(e, "MerchantServices",'MCHS')}>MerchantServices</Button>
               </Card>
               <Card component="form" noValidate autoComplete="off">
-                <Button className="select-company">TechnicalHelp</Button>
+                <Button className="select-company" onClick={(e) => choseCompany(e, "TechnicalHelp",'TEHP')}>TechnicalHelp</Button>
               </Card>
             </div>
           </Box>

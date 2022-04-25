@@ -86,7 +86,7 @@ const TabsList = styled(TabsListUnstyled)`
 
 
 function Dashboard() {
-
+    const [scale, setScale] = React.useState('4-5');
     const [monthDetails, setMonthDetails] = React.useState('12');
     const [surveyId, setSurveyId] = React.useState('1');
     const [questionsDetails, setQuestionsDetails] = React.useState('');
@@ -101,13 +101,17 @@ function Dashboard() {
         setMonthDetails(event.target.value);
         console.log(event.target.value);
     };
+    let companyData = {companyname:'PlacePay',companycode:'PPAY'};
+    if(localStorage.companyDetails){
+         companyData = JSON.parse(localStorage.companyDetails);
+    }
     useEffect(() => {
         fetchQuestionData(surveyId,monthDetails);
         fetchOverviewData(surveyId,monthDetails);
     }, [surveyId,monthDetails]);
     const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
     const fetchAllSurveyData = async () => {
-        const surveyUrl = `${baseUrl}getAllSurveyData`
+        const surveyUrl = `${baseUrl}getAllSurveyData?companyCode=${companyData.companycode}`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
@@ -129,9 +133,9 @@ function Dashboard() {
     const fetchOverviewData = async (surveyId,month) => {
         let surveyUrl = '';
         if(surveyId === '' || surveyId === '1'){
-            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}&companyCode=${companyData.companycode}`;
         }else{
-            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
         }
         try {
             const response = await fetch(surveyUrl);
@@ -146,9 +150,9 @@ function Dashboard() {
     const fetchQuestionData = async (surveyId,month) => {
         let url = '';
         if(surveyId === '' || surveyId === '1'){
-             url = `${baseUrl}dashboardGetQuestion/?month=${month}`;
+             url = `${baseUrl}dashboardGetQuestion/?month=${month}&companyCode=${companyData.companycode}`;
         }else{
-             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}`;
+             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
         }
         try {
             const response = await fetch(url);
@@ -192,7 +196,7 @@ function Dashboard() {
                         <h3>{surveyOverView[i].questionType}</h3>
                         <div className="score-content happy">
                             <div className='score-smile'>
-                                {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />}
+                                {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />  }123
                                 {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
                                 {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
                                 <div className='score-card'>

@@ -27,6 +27,10 @@ const NewSurvey = (props) => {
     closingMessageError: "",
   });
   const [validationStatus, setValidationStatus] = React.useState(true);
+   let companyData = {companyname:'PlacePay',companycode:'PPAY'};
+    if(localStorage.companyDetails){
+         companyData = JSON.parse(localStorage.companyDetails);
+    }
   const checkValidation = () => {
     //let errors = validation;
     let surveyNameError = "";
@@ -69,9 +73,6 @@ const NewSurvey = (props) => {
   React.useEffect(() => {
     setValidationStatus(props.formValue.canUpdate);
   },[]);
-  //   useEffect(() => {
-  //     checkValidation();
-  //   }, [formValues]);
 
   let handleChange = (i, e) => {
     let newFormValues = [...questionValues];
@@ -147,6 +148,10 @@ const NewSurvey = (props) => {
     if (checkValidation()) {
       // alert(JSON.stringify(formValues));
       delete formValues["canUpdate"];
+      if(companyData){
+        formValues.companyName = companyData.companyname;
+        formValues.companyCode = companyData.companycode;
+      }
       props.onAdd(JSON.stringify(formValues));
       
     }
