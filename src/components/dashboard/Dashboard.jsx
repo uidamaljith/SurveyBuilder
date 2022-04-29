@@ -1,4 +1,5 @@
 import React,{ useEffect } from 'react';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -247,6 +248,7 @@ function Dashboard() {
             {!viewTrend &&             <>
             <div className='section-header'>
                 <h2>Dashboard</h2>
+                <Button variant="contained">Download</Button>
             </div>
             <div className="section-content">
                 
