@@ -77,12 +77,11 @@ function MainNav() {
   Surveys
 </NavLink>
           </li>
-          <li>
-            {/* <Link to="/AgentRating">Agent Rating</Link> */}
+          {/* <li>
             <NavLink  to="/AgentRating" activeClassName="selected">
   Agent Rating
 </NavLink>
-          </li>
+          </li> */}
         </ul>
 
 

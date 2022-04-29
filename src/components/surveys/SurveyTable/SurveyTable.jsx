@@ -17,8 +17,11 @@ const SurveyTable = (props) => {
   const [defaultitem,setDefaultItem]= React.useState();
   console.log(props.data);
   if(props.data){
-    const selectedRow = props.data.filter((item) => {
-      return item.default === true;
+    let selectedRow = [];
+    selectedRow = props.data.filter((item) => {
+      if(item.default){
+        return item.default === true;
+      }
     });
     const columns: GridColDef[] = [
     { field: "id", hide: true },
@@ -64,26 +67,25 @@ const SurveyTable = (props) => {
         // <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(data)}/>,
       ],
     },
-    {
-      field: "analyze",
-      type: "actions",
-      headerName: "Analyze",
-      width: 100,
-      getActions: (data) => [
-        <GridActionsCellItem
-          icon={<InsertChartIcon />}
-          label="Analyze"
-          onClick={handleEditClick(data)}
-        />,
-        // <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(data)}/>,
-      ],
-    },
+    // {
+    //   field: "analyze",
+    //   type: "actions",
+    //   headerName: "Analyze",
+    //   width: 100,
+    //   getActions: (data) => [
+    //     <GridActionsCellItem
+    //       icon={<InsertChartIcon />}
+    //       label="Analyze"
+    //       onClick={handleEditClick(data)}
+    //     />,
+    //   ],
+    // },
     {
       field: "default",
       headerName: "Default",
       width: 100,
       renderCell: (params) => (
-        <Radio checked={selectedRow[0].id === params.id} value={params.id}  onClick={onRadioSelcetion(params.id)}/>
+        <Radio  checked={ selectedRow[0] && selectedRow[0].id === params.id} value={params.id}  onClick={onRadioSelcetion(params.id)}/>
       )
     },
   ];
