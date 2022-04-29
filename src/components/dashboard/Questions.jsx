@@ -39,9 +39,9 @@ const columns: GridColDef[] = [
   { field: "SL", headerName: "#", flex: 1,maxWidth: 50, },
   { field: "Question", headerName: "Question", flex: 1,minWidth: 300, },
   { field: "Metric", headerName: "Metric",flex: 1,minWidth: 150,},
-  { field: "Positive", renderHeader: ()=><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100 },
-  { field: "Avarage", renderHeader: ()=><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
-  { field: "Negative", renderHeader: ()=><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' />,flex: 1,minWidth: 100,},
+  { field: "Positive", renderHeader: ()=>(<><SentimentSatisfiedAltIcon style={{ color: "green",margin:'auto'}} fontSize='large' /><span>(4-5)</span></> ),flex: 1,minWidth: 100 },
+  { field: "Avarage", renderHeader: ()=>(<><SentimentSatisfiedIcon style={{ color: "orange",margin:'auto'}} fontSize='large' /><span>(3)</span></>),flex: 1,minWidth: 100,},
+  { field: "Negative", renderHeader: ()=><><SentimentVeryDissatisfiedIcon style={{ color: "red",margin:'auto'}} fontSize='large' /><span>(1-2)</span></>,flex: 1,minWidth: 100,},
   { field: "Responses", headerName: "Responses",flex: 1,minWidth: 100,},
   
 ];

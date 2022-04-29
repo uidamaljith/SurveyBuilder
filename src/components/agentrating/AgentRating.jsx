@@ -25,9 +25,13 @@ const AgentRating = () => {
         setSurveyname(event.target.value);
         setBymonth(event.target.value);
     };
+    let companyData = {companyname:'PlacePay',companycode:'PPAY'};
+    if(localStorage.companyDetails){
+         companyData = JSON.parse(localStorage.companyDetails);
+    }
     const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
     const fetchSurveyData = async () => {
-        const surveyUrl = `${baseUrl}getAllSurveyData`
+        const surveyUrl = `${baseUrl}getAllSurveyData?companyCode=${companyData.companycode}`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();

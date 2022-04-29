@@ -86,7 +86,7 @@ const TabsList = styled(TabsListUnstyled)`
 
 
 function Dashboard() {
-
+    const [scale, setScale] = React.useState('4-5');
     const [monthDetails, setMonthDetails] = React.useState('12');
     const [surveyId, setSurveyId] = React.useState('1');
     const [questionsDetails, setQuestionsDetails] = React.useState('');
@@ -99,19 +99,21 @@ function Dashboard() {
     };
     const handleChangeMonth = (event) => {
         setMonthDetails(event.target.value);
-        console.log(event.target.value);
     };
+    let companyData = {companyname:'PlacePay',companycode:'PPAY'};
+    if(localStorage.companyDetails){
+         companyData = JSON.parse(localStorage.companyDetails);
+    }
     useEffect(() => {
         fetchQuestionData(surveyId,monthDetails);
         fetchOverviewData(surveyId,monthDetails);
     }, [surveyId,monthDetails]);
     const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
     const fetchAllSurveyData = async () => {
-        const surveyUrl = `${baseUrl}getAllSurveyData`
+        const surveyUrl = `${baseUrl}getAllSurveyData?companyCode=${companyData.companycode}`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
-            console.log(json.message);
             let data = json.message;
             const surveyProcessed = data.map(surveyData => ({ id: surveyData.id,
                 name:  surveyData.surveyName, 
@@ -121,7 +123,6 @@ function Dashboard() {
               })
             setSurveyDetails(surveyProcessed);
             setLoading(false);
-            console.log(surveyProcessed);
         } catch (error) {
             console.log("error", error);
         }
@@ -129,14 +130,13 @@ function Dashboard() {
     const fetchOverviewData = async (surveyId,month) => {
         let surveyUrl = '';
         if(surveyId === '' || surveyId === '1'){
-            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}&companyCode=${companyData.companycode}`;
         }else{
-            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
         }
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
-            console.log(json.message);
             let data = json.message;
             setSurveyOverView(data);
         } catch (error) {
@@ -146,14 +146,13 @@ function Dashboard() {
     const fetchQuestionData = async (surveyId,month) => {
         let url = '';
         if(surveyId === '' || surveyId === '1'){
-             url = `${baseUrl}dashboardGetQuestion/?month=${month}`;
+             url = `${baseUrl}dashboardGetQuestion/?month=${month}&companyCode=${companyData.companycode}`;
         }else{
-             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}`;
+             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
         }
         try {
             const response = await fetch(url);
             const json = await response.json();
-            console.log(json.message);
             setQuestionsDetails(json.message);
         } catch (error) {
             console.log("error", error);
@@ -192,7 +191,7 @@ function Dashboard() {
                         <h3>{surveyOverView[i].questionType}</h3>
                         <div className="score-content happy">
                             <div className='score-smile'>
-                                {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />}
+                                {parseInt(surveyOverView[i].score) > 60 && <SentimentSatisfiedAltIcon style={{ color: "green" }} fontSize='large' />  }
                                 {(parseInt(surveyOverView[i].score) >= 41 && parseInt(surveyOverView[i].score) <= 60) && <SentimentSatisfiedIcon style={{ color: "orange" }} fontSize='large' />}
                                 {parseInt(surveyOverView[i].score) <= 40 && <SentimentVeryDissatisfiedIcon style={{ color: "red" }} fontSize='large' />}
                                 <div className='score-card'>
@@ -216,10 +215,9 @@ function Dashboard() {
                                 <h4>{surveyOverView[i].totalResponse}</h4>
                                 <span>Responses</span>
                             </div>
-                            <div className='score-card'>
+                            {/* <div className='score-card'>
                                 <a href="#" onClick={showTrend}>View Trend</a>
-                                {/* <Link to="/AgentRating">View Trend</Link> */}
-                            </div>
+                            </div> */}
                         </div>
         
                     </CardContent>

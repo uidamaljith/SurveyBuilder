@@ -42,7 +42,7 @@
         line-height: 1.7;
         display: block;
       }
-      &.active {
+      .active {
         background-color: rgba($theme-bright, 0.2);
         a {
           border-left: solid 5px rgba($theme-bright, 1);
