@@ -27,10 +27,10 @@ const NewSurvey = (props) => {
     closingMessageError: "",
   });
   const [validationStatus, setValidationStatus] = React.useState(true);
-   let companyData = {companyname:'PlacePay',companycode:'PPAY'};
-    if(localStorage.companyDetails){
-         companyData = JSON.parse(localStorage.companyDetails);
-    }
+  let companyData = { companyname: "PlacePay", companycode: "PPAY" };
+  if (localStorage.companyDetails) {
+    companyData = JSON.parse(localStorage.companyDetails);
+  }
   const checkValidation = () => {
     //let errors = validation;
     let surveyNameError = "";
@@ -72,22 +72,22 @@ const NewSurvey = (props) => {
   React.useEffect(() => {}, [formValues]);
   React.useEffect(() => {
     setValidationStatus(props.formValue.canUpdate);
-  },[]);
+  }, []);
 
   let handleChange = (i, e) => {
     let newFormValues = [...questionValues];
     newFormValues[i][e.target.name] = e.target.value;
-    if(e.target.value === "NPS" && i === 0){
+    if (e.target.value === "NPS" && i === 0) {
       setNps(true);
-      newFormValues = newFormValues.slice(0,1);
+      newFormValues = newFormValues.slice(0, 1);
       setQuestionValues(newFormValues);
       setFormValues((prevSurvey) => {
         return {
           ...prevSurvey,
           Questions: newFormValues,
         };
-      }); 
-    }else{
+      });
+    } else {
       setNps(false);
       setQuestionValues(newFormValues);
       setFormValues((prevSurvey) => {
@@ -98,8 +98,6 @@ const NewSurvey = (props) => {
       });
     }
 
-  
-
     if (!e.target.value) {
       setValidation((prevValidation) => {
         return {
@@ -108,7 +106,6 @@ const NewSurvey = (props) => {
         };
       });
     }
-
   };
   let addFormFields = () => {
     if (props.editStatus) {
@@ -148,12 +145,11 @@ const NewSurvey = (props) => {
     if (checkValidation()) {
       // alert(JSON.stringify(formValues));
       delete formValues["canUpdate"];
-      if(companyData){
+      if (companyData) {
         formValues.companyName = companyData.companyname;
         formValues.companyCode = companyData.companycode;
       }
       props.onAdd(JSON.stringify(formValues));
-      
     }
   };
   let deleteQuestions = (event, i) => {
@@ -240,29 +236,38 @@ const NewSurvey = (props) => {
     });
   };
 
+  const [age, setAge] = React.useState('');
+
+  const paySelector = (event) => {
+    setAge(event.target.value);
+  };
+
   return (
     <form onSubmit={submitNewSurvey}>
       <div className="section-header survey-primary">
         <button onClick={props.onBackClick} className="back-button">
           <ArrowBackIcon />
         </button>
-        {props.editStatus?<h2>Edit Survey</h2>:<h2>New Survey</h2>}
-        
-       {validationStatus &&
-        <Button
-          disabled={!validationStatus}
-          type="submit"
-          value="Submit"
-          variant="contained"
-          className={`save-survey ${!validationStatus ? "disabled-element-color " : ""}`}
-        >
-          Save
-        </Button>
-       } 
+        {props.editStatus ? <h2>Edit Survey</h2> : <h2>New Survey</h2>}
+
+        {validationStatus && (
+          <Button
+            disabled={!validationStatus}
+            type="submit"
+            value="Submit"
+            variant="contained"
+            className={`save-survey ${
+              !validationStatus ? "disabled-element-color " : ""
+            }`}
+          >
+            Save
+          </Button>
+        )}
       </div>
       <div className="section-content survey-name">
         <Card component="form" noValidate autoComplete="off">
           <CardContent>
+        <div className="form-field-group name-new-survey">
             <label>Survey Name</label>
             <TextField
               //label="Add Survey Name"
@@ -273,11 +278,29 @@ const NewSurvey = (props) => {
               value={formValues.surveyName}
               onChange={(e) => handleFormChange(e)}
               disabled={!validationStatus}
-              
             />
             <span className="text-danger">{validation.surveyNameError}</span>
-          </CardContent>
           
+          </div>
+          <div className="form-field-group company-select">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <label id="demo-simple-select-label">Select Company</label>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Age"
+                    onChange={paySelector}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </div>
+            </CardContent>
         </Card>
       </div>
 
@@ -286,7 +309,6 @@ const NewSurvey = (props) => {
       </div>
       <div className="section-content">
         <Card component="form" noValidate autoComplete="off">
-          
           <div className="icon-with-form">
             <div className="icon">
               <ChatBubbleOutlineIcon />
@@ -314,124 +336,146 @@ const NewSurvey = (props) => {
       </div>
       {questionValues.map((element, index) => (
         <div className="section-content">
-          {(index === 1 && (questionValues[0].questionType !=='NPS')) &&  <h2>Additional Question</h2>}
-          {(index ===0 || (!is_nps && questionValues[0].questionType !=='NPS' )) && 
-                      <Card component="form" noValidate autoComplete="off">
-                      <div className="icon-with-form form-inline" key={index}>
-                        <div className="icon ">
-                          <div className="mover">
-                            {(index > 0 && validationStatus) && (
-                              <>
-                                {index > 1 && (
-                                  <button
-                                    onClick={(e) => reArrangeQuestions(e, index, true)}
-                                  >
-                                    <ArrowUpwardIcon />
-                                  </button>
-                                )}
-                                {(index + 1 < questionValues.length && validationStatus) && (
-                                  <button
-                                    onClick={(e) => reArrangeQuestions(e, index, false)}
-                                  >
-                                    <ArrowDownwardIcon />
-                                  </button>
-                                )}
-                              </>
-                            )}
-                          </div>
-          
-                          <span>Q{index + 1}</span>
-          
-                          {(index > 0 && validationStatus)&& (
-                            <button onClick={(e) => deleteQuestions(e, index)}>
-                              <DeleteIcon />
-                            </button>
-                          )}
-                        </div>
-          
-                        <div className="form-field-group text-question">
-                          <label>Question</label>
-          
-                          <TextField
-                            id="QuestionName"
-                            name="question"
-                            variant="outlined"
-                            value={element.question}
-                            type="text"
-                            onChange={(e) => handleChange(index, e)}
-                            disabled={!validationStatus}
-                            className="save-survey"
-                          />
-                          <span className="text-danger">{!element.question && validation.questionNameError}</span>
-                        </div>
-                        <div className="form-field-group text-type">
-                          <label>Question Type</label>
-                          <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth>
-                              {/* <InputLabel id="Score">Score</InputLabel> */}
-                              <Select
-                                labelId="Score"
-                                id="demo-simple-select"
-                                name="questionType"
-                               // label="Score"
-                                value={index > 0 ? formValues.surveyName !== ''?element.questionType:'PS':element.questionType?element.questionType:'CSAT'}
-                                onChange={(e) => handleChange(index, e)}
-                                disabled={!validationStatus}
-                                className={`${!validationStatus ? "disabled-element-color " : ""}`}
-                              >
-                                {index < 1 && (
-                                  <MenuItem value="CSAT">
-                                    Customer Satisfaction Score
-                                  </MenuItem>
-                                )}
-                                {index < 1 && (
-                                  <MenuItem value="CES">Customer Effort Score</MenuItem>
-                                )}
-                                {index < 1 && (
-                                  <MenuItem value="NPS">Net Promoter Score</MenuItem>
-                                )}
-                                {index >= 1 && (
-                                  <MenuItem value="PS">Point Scale</MenuItem>
-                                )}
-                              </Select>
-                            </FormControl>
-                          </Box>
-                        </div>
-                        <div className="form-field-group text-scale">
-                          <label>Scale</label>
-                          <Box sx={{ maxWidth: 120 }}>
-                            <FormControl fullWidth>
-                              {/* <InputLabel id="Scale">scale</InputLabel> */}
-                              <Select
-                                labelId="Scale"
-                                id="demo-simple-select"
-                                name="minScale"
-                                //label="scale"
-                                value="10"
-                                onChange={(e) => handleChange(index, e)}
-                                disabled={!validationStatus}
-                                className={`${!validationStatus ? "disabled-element-color " : ""}`}
-                              >
-                                <MenuItem value={10}>1-5</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </Box>
-                        </div>
-                      </div>
-                    </Card>
-          }
-          
+          {index === 1 && questionValues[0].questionType !== "NPS" && (
+            <h2>Additional Question</h2>
+          )}
+          {(index === 0 ||
+            (!is_nps && questionValues[0].questionType !== "NPS")) && (
+            <Card component="form" noValidate autoComplete="off">
+              <div className="icon-with-form form-inline" key={index}>
+                <div className="icon ">
+                  <div className="mover">
+                    {index > 0 && validationStatus && (
+                      <>
+                        {index > 1 && (
+                          <button
+                            onClick={(e) => reArrangeQuestions(e, index, true)}
+                          >
+                            <ArrowUpwardIcon />
+                          </button>
+                        )}
+                        {index + 1 < questionValues.length && validationStatus && (
+                          <button
+                            onClick={(e) => reArrangeQuestions(e, index, false)}
+                          >
+                            <ArrowDownwardIcon />
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  <span>Q{index + 1}</span>
+
+                  {index > 0 && validationStatus && (
+                    <button onClick={(e) => deleteQuestions(e, index)}>
+                      <DeleteIcon />
+                    </button>
+                  )}
+                </div>
+
+                <div className="form-field-group text-question">
+                  <label>Question</label>
+
+                  <TextField
+                    id="QuestionName"
+                    name="question"
+                    variant="outlined"
+                    value={element.question}
+                    type="text"
+                    onChange={(e) => handleChange(index, e)}
+                    disabled={!validationStatus}
+                    className="save-survey"
+                  />
+                  <span className="text-danger">
+                    {!element.question && validation.questionNameError}
+                  </span>
+                </div>
+                <div className="form-field-group text-type">
+                  <label>Question Type</label>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      {/* <InputLabel id="Score">Score</InputLabel> */}
+                      <Select
+                        labelId="Score"
+                        id="demo-simple-select"
+                        name="questionType"
+                        // label="Score"
+                        value={
+                          index > 0
+                            ? formValues.surveyName !== ""
+                              ? element.questionType
+                              : "PS"
+                            : element.questionType
+                            ? element.questionType
+                            : "CSAT"
+                        }
+                        onChange={(e) => handleChange(index, e)}
+                        disabled={!validationStatus}
+                        className={`${
+                          !validationStatus ? "disabled-element-color " : ""
+                        }`}
+                      >
+                        {index < 1 && (
+                          <MenuItem value="CSAT">
+                            Customer Satisfaction Score
+                          </MenuItem>
+                        )}
+                        {index < 1 && (
+                          <MenuItem value="CES">Customer Effort Score</MenuItem>
+                        )}
+                        {index < 1 && (
+                          <MenuItem value="NPS">Net Promoter Score</MenuItem>
+                        )}
+                        {index >= 1 && (
+                          <MenuItem value="PS">Point Scale</MenuItem>
+                        )}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+                <div className="form-field-group text-scale">
+                  <label>Scale</label>
+                  <Box sx={{ maxWidth: 120 }}>
+                    <FormControl fullWidth>
+                      {/* <InputLabel id="Scale">scale</InputLabel> */}
+                      <Select
+                        labelId="Scale"
+                        id="demo-simple-select"
+                        name="minScale"
+                        //label="scale"
+                        value="10"
+                        onChange={(e) => handleChange(index, e)}
+                        disabled={!validationStatus}
+                        className={`${
+                          !validationStatus ? "disabled-element-color " : ""
+                        }`}
+                      >
+                        <MenuItem value={10}>1-5</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              </div>
+            </Card>
+          )}
         </div>
       ))}
-      {(!is_nps && questionValues[0].questionType !=='NPS' && validationStatus) && <div className="section-content add-question">
-        <Card component="form" noValidate autoComplete="off">
-          {questionValues.length < 5 && (
-            <Button variant="outlined" onClick={() => addFormFields()} disabled={!validationStatus}>
-              <span>+</span>ADD ADDITIONAL QUESTION
-            </Button>
-          )}
-        </Card>
-      </div>}
+      {!is_nps && questionValues[0].questionType !== "NPS" && validationStatus && (
+        <div className="section-content add-question">
+          <Card component="form" noValidate autoComplete="off">
+            {questionValues.length < 5 && (
+              <Button
+                variant="outlined"
+                onClick={() => addFormFields()}
+                disabled={!validationStatus}
+              >
+                <span>+</span>ADD ADDITIONAL QUESTION
+              </Button>
+            )}
+          </Card>
+        </div>
+      )}
       <div className="section-header">
         <h2>Closing Message</h2>
       </div>
@@ -452,18 +496,23 @@ const NewSurvey = (props) => {
                 disabled={!validationStatus}
               />
               <span className="text-danger">
-              {validation.closingMessageError}
-            </span>
+                {validation.closingMessageError}
+              </span>
             </div>
-            
           </div>
         </Card>
       </div>
-    {validationStatus && <div className="section-footer">
-      <Button variant="contained" onClick={submitNewSurvey} disabled={!validationStatus}>
-        Save
-      </Button>
-    </div>}
+      {validationStatus && (
+        <div className="section-footer">
+          <Button
+            variant="contained"
+            onClick={submitNewSurvey}
+            disabled={!validationStatus}
+          >
+            Save
+          </Button>
+        </div>
+      )}
     </form>
   );
 };

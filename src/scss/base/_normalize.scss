@@ -424,3 +424,9 @@ form{
         display: none;
     }
 }
+
+*{
+    &:focus,&:hover{
+        outline: none !important;
+    }
+}

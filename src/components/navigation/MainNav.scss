@@ -52,9 +52,9 @@
   }
 
   .select-company {
-    position: absolute;
-    bottom: 0px;
-    padding: 40px 20px;
+    // position: absolute;
+    // bottom: 0px;
+    padding: 20px 10px;
     background-color: #009688;
     border-radius: 0px;
     color: #ffffff;
@@ -121,7 +121,7 @@
     
       .MuiButton-root {
         width: 100%;
-        padding: 40px 50px;
+        padding: 40px 20px;
         @include font-size(18px);
         font-family: $primary-font;
         color: rgba(#009688, 1);
@@ -129,6 +129,7 @@
         text-align: center;
         line-height: 1.7;
         text-transform: inherit;
+        min-height: 140px;
       }
     }
   }
