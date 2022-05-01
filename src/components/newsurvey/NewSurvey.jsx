@@ -241,6 +241,17 @@ const NewSurvey = (props) => {
   const paySelector = (event) => {
     setAge(event.target.value);
   };
+  const companySelector = (event) => {
+    console.log(event.target.value);
+  };
+  const companyArray = [
+    {"companyname":'AllPay',"companycode":""},
+    {"companyname":'PlacePay',"companycode":"PPAY"},
+    {"companyname":'PaySchools Central',"companycode":"PSCH"},
+    {"companyname":'SchoolPay',"companycode":"SPAY"},
+    {"companyname":'MerchantServices',"companycode":"MCHS"},
+    {"companyname":'TechnicalHelp',"companycode":"TEHP"}
+  ]
 
   return (
     <form onSubmit={submitNewSurvey}>
@@ -289,13 +300,13 @@ const NewSurvey = (props) => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={companyData.companycode !==''?companyData.companycode:'PPAY'}
                     label="Age"
-                    onChange={paySelector}
+                    onChange={companySelector}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {companyArray.map((company,index) =>{
+                      return <MenuItem value={company.companycode} key={index}>{company.companyname}</MenuItem>
+                    })}
                   </Select>
                 </FormControl>
               </Box>

@@ -38,7 +38,11 @@ function Surveys() {
     }
     const [surveyData, setSurveyData] = useState('');
     const [surveyId, setSurveyId] = useState('');
-    const url = `${urlBase}getAllSurveyData?companyCode=${companyData.companycode}`;
+    let qParam = ''
+    if(companyData.companycode !== ''){
+        qParam = `?companyCode=${companyData.companycode}`;
+    }
+    const url = `${urlBase}getAllSurveyData${qParam}`;
     const fetchData = async () => {
         try {
             const response = await fetch(url);
