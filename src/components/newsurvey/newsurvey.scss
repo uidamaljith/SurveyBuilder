@@ -77,18 +77,22 @@
   display: none !important;
 }
 
-.css-46bh2p-MuiCardContent-root {
-  padding: 15px !important;
-  @include flexbox();
-  @include flex-direction(row);
-  @include justify-content(space-between);
-  .form-field-group{
-    @include flex(1 0 auto !important);
-    &.name-new-survey{
-      max-width: 75%;
-      margin-right: 20px;
-      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
-        padding: 15px 14px;
+
+.survey-name{
+
+  .css-46bh2p-MuiCardContent-root {
+    padding: 15px !important;
+    @include flexbox();
+    @include flex-direction(row);
+    @include justify-content(space-between);
+    .form-field-group{
+      @include flex(1 0 auto !important);
+      &.name-new-survey{
+        max-width: 75%;
+        margin-right: 20px;
+        .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+          padding: 15px 14px;
+        }
       }
     }
   }
