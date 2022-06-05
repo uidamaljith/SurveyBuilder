@@ -29,7 +29,7 @@ const AgentRating = () => {
     if(localStorage.companyDetails){
          companyData = JSON.parse(localStorage.companyDetails);
     }
-    const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
+    const baseUrl = process.env.REACT_APP_BASE_URL;
     const fetchSurveyData = async () => {
         const surveyUrl = `${baseUrl}getAllSurveyData?companyCode=${companyData.companycode}`
         try {

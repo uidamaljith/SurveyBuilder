@@ -10,6 +10,7 @@ import AgentRating from "./components/agentrating/AgentRating";
 import Dashboard from "./components/dashboard/Dashboard";
 import MainNav from "./components/navigation/MainNav";
 import Surveys from "./components/surveys/Surveys";
+import SurveyHistory from "./components/surveyhistory/surveyhistory";
 import ScoreTrend from "./components/scoretrend/ScoreTrend";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -25,6 +26,10 @@ const route = [
   {
     path: "/Surveys",
     title: "Surveys",
+  },
+  {
+    path: "/Surveyhistory",
+    title: "Survey History",
   },
   {
     path: "/AgentRating",
@@ -71,6 +76,7 @@ export default function App() {
 
             <Route exact path="/" element={<Dashboard />} />
             <Route exact path="/Surveys" element={<Surveys />} />
+            <Route exact path="/Surveyhistory" element={<SurveyHistory />} />
             <Route exact path="/AgentRating" element={<AgentRating />} />
 
             <Route exact path="/NewSurvey" element={<NewSurvey />} />

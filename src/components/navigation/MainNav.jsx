@@ -31,7 +31,7 @@ function MainNav() {
   const [company, setCompany] = React.useState("Select Company");
   const [open, setOpen] = React.useState(false);
   const companyArray = [
-    {"companyname":'AllPay',"companycode":""},
+    {"companyname":'All',"companycode":""},
     {"companyname":'PlacePay',"companycode":"PPAY"},
     {"companyname":'PaySchools Central',"companycode":"PSCH"},
     {"companyname":'SchoolPay',"companycode":"SPAY"},
@@ -88,9 +88,14 @@ function MainNav() {
           </li>
           <li>
             {/* <Link to="/Surveys">Surveys</Link> */}
-            <NavLink to="/Surveys" activeClassName="selected">
-              Surveys
-            </NavLink>
+          {company!=='All' && <NavLink to="/Surveys" activeClassName="selected">
+            Surveys
+          </NavLink>}
+          </li>
+          <li>
+          {company ==='All' && <NavLink to="/Surveyhistory" activeClassName="selected">
+            Survey History
+          </NavLink>}
           </li>
           {/* <li>
             <NavLink  to="/AgentRating" activeClassName="selected">

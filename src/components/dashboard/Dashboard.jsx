@@ -20,7 +20,8 @@ import ScoreTrend from '../scoretrend/ScoreTrend';
 import QuestionsTable from './Questions';
 import './dashboard.scss';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import axios, { AxiosRequestConfig } from 'axios';
+//import fs from 'fs';
 const blue = {
     50: '#F0F7FF',
     100: '#C2E0FF',
@@ -95,11 +96,19 @@ function Dashboard() {
     const [surveyDetails, setSurveyDetails] = React.useState([]);
     const [surveyOverView, setSurveyOverView] = React.useState([]);
     const [viewTrend, setViewTrend] = React.useState(false);
+
+
+    const [surveyQParam, setSurveyQParam] = React.useState('');
+    const [monthQParam, setMonthQParam] = React.useState('?month=12&');
     const handleChangeSurvey = (event) => {
         setSurveyId(event.target.value);
+         setSurveyQParam(event.target.value==='1'?'':`surveyId=${event.target.value}`)
     };
     const handleChangeMonth = (event) => {
         setMonthDetails(event.target.value);
+        //monthQParam = `?month=${event.target.value}&`;
+
+        setMonthQParam(`?month=${event.target.value}&`)
     };
     let companyData = {companyname:'PlacePay',companycode:'PPAY'};
     if(localStorage.companyDetails){
@@ -109,9 +118,46 @@ function Dashboard() {
         fetchQuestionData(surveyId,monthDetails);
         fetchOverviewData(surveyId,monthDetails);
     }, [surveyId,monthDetails]);
-    const baseUrl = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
+    const baseUrl = process.env.REACT_APP_BASE_URL;
+    let qParam = ''
+    if(companyData.companycode !== ''){
+        qParam = `companyCode=${companyData.companycode}&`;
+    }
+      const downloadReport = async () =>{
+        let surveyUrl = `https://d737etkk9ai0i.cloudfront.net/eivr/dashboard/survey/${monthQParam}${qParam}${surveyQParam}`
+        
+        // try {
+        //     const response = await fetch(surveyUrl);
+        //     const json = await response.json();
+        //     let data = json.message;
+        //     const link = document.createElement('a');
+        //     link.href = data.link;
+        //     link.setAttribute('download', 'file.xlsx'); //or any other extension
+        //     document.body.appendChild(link);
+        //     link.click();
+        //     document.body.removeChild(link);
+        // } catch (error) {
+        //     console.log("error", error);
+        // }
+
+        //const headers = {'Content-Type': 'blob'};
+        // const config: AxiosRequestConfig = {method: 'GET', url: URL, responseType: 'arraybuffer', headers};
+    
+        try {
+            const response = await axios.get(surveyUrl, {responseType: 'blob'}); 
+            const outputFilename = `${Date.now()}.xlsx`;
+            const url = URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', outputFilename);
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            throw Error(error);
+        }
+    }
     const fetchAllSurveyData = async () => {
-        const surveyUrl = `${baseUrl}getAllSurveyData?companyCode=${companyData.companycode}`
+        const surveyUrl = `${baseUrl}getAllSurveyData?${qParam}`
         try {
             const response = await fetch(surveyUrl);
             const json = await response.json();
@@ -131,9 +177,9 @@ function Dashboard() {
     const fetchOverviewData = async (surveyId,month) => {
         let surveyUrl = '';
         if(surveyId === '' || surveyId === '1'){
-            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}&companyCode=${companyData.companycode}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?month=${month}&${qParam}`;
         }else{
-            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
+            surveyUrl = `${baseUrl}dashboardGetOverview/?surveyId=${surveyId}&month=${month}&${qParam}`;
         }
         try {
             const response = await fetch(surveyUrl);
@@ -147,9 +193,9 @@ function Dashboard() {
     const fetchQuestionData = async (surveyId,month) => {
         let url = '';
         if(surveyId === '' || surveyId === '1'){
-             url = `${baseUrl}dashboardGetQuestion/?month=${month}&companyCode=${companyData.companycode}`;
+             url = `${baseUrl}dashboardGetQuestion/?month=${month}&${qParam}`;
         }else{
-             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}&companyCode=${companyData.companycode}`;
+             url = `${baseUrl}dashboardGetQuestion/?surveyId=${surveyId}&month=${month}&${qParam}`;
         }
         try {
             const response = await fetch(url);
@@ -248,7 +294,7 @@ function Dashboard() {
             {!viewTrend &&             <>
             <div className='section-header'>
                 <h2>Dashboard</h2>
-                <Button variant="contained">Download</Button>
+                <Button variant="contained" onClick={downloadReport}>Download</Button>
             </div>
             <div className="section-content">
                 

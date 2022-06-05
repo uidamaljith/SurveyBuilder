@@ -1,4 +1,5 @@
 testing build
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -65,6 +66,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+1.npm install
+2.npm run build
+
+it will create a folder name "build" in root directory we can duse that ton deploy.
 
 ### `npm run build` fails to minify
 
