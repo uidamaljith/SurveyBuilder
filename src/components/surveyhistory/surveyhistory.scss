@@ -1,7 +1,15 @@
 @import "../../scss/master.scss";
 .surveys {
     // > form{
-        
+        .content-container select{
+            margin-left: 10px;
+        }
+        .type-filter{
+             margin-left: 20px;
+        }
+        .search-button{
+            margin-left: 10px;
+        }
         .section-header {
             @include flexbox();
             @include flex-direction(row);

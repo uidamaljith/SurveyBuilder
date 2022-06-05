@@ -99,7 +99,7 @@ const SurveyTable = (props) => {
     </Card>
   );
   }else{
-    return (<span>Loading...</span> )
+    return (<span></span> )
   }
 
 

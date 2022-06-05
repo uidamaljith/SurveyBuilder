@@ -82,9 +82,9 @@ function SurveyHistory() {
             <div>
                 <label htmlFor="search">Search</label><br></br>
                 <input name="search" onChange={(e) => handleChange(e)} type="text" placeholder='Contactid/Phone Number' />
-                <button onClick={getSurveyHistory}>Search</button>
+                <button className="search-button" onClick={getSurveyHistory}>Search</button>
 
-                <select name="type" id="type" onChange={(e) => handleTypeChange(e)}>
+                <select class="type-filter" name="type" id="type" onChange={(e) => handleTypeChange(e)}>
                     <option value="contactId">Contact Id</option>
                     <option value="contactNumber">Contact Number</option>
                 </select>
