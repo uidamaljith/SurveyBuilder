@@ -71,6 +71,9 @@
   button {
     background-color: #009688 !important;
     @include align-self(center);
+    &.cancel-button{
+      margin-right: 10px;
+    }
   }
 }
 .MuiDataGrid-footerContainer {

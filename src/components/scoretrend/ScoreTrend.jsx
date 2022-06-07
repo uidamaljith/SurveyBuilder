@@ -106,7 +106,7 @@ const ScoreTrend = (props) => {
         setSurveyname(event.target.value);
         setBymonth(event.target.value);
     };
-    const url = "https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/dummyDashboardGetTrend";
+    const url = process.env.REACT_APP_BASE_URL;
     const fetchData = async () => {
         try {
             const response = await fetch(url);

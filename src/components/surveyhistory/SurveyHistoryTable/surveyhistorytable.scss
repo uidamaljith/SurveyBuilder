@@ -1,0 +1,63 @@
+@import "../../../scss/master.scss";
+
+.surveys{
+
+    .section-header{
+        margin-bottom: 10px !important;
+        h2 {
+            @include font-size(16px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+            
+        }
+        &.survey-primary{
+            h2{
+                @include font-size(20px); 
+            }
+        }
+        .back-button{
+            svg{
+                fill:rgba(#4d4f5c, 1);
+            }
+        }
+    }
+    .section-content{
+        margin-top: 0px;
+        h2 {
+            @include font-size(16px);
+            margin-bottom: 10px !important;
+        }
+
+    }
+  }
+  .section-content {
+    margin-top: 0px;
+  }
+
+  > form {
+    .MuiCardContent-root {
+      padding: 0px !important;
+      .css-jgzxgq-MuiDataGrid-root {
+        // border-radius: 0px;
+        border: none;
+      }
+    }
+    :not(.survey-name) {
+      .MuiCardContent-root {
+        padding: 15px !important;
+        .css-jgzxgq-MuiDataGrid-root {
+          // border-radius: 0px;
+          border: none;
+        }
+      }
+    }
+
+
+    // .set-height{
+    //     min-height:10px;
+    // }
+}
+

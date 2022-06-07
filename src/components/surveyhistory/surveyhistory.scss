@@ -1,0 +1,57 @@
+@import "../../scss/master.scss";
+.surveys {
+    // > form{
+        .content-container select{
+            margin-left: 10px;
+        }
+        .type-filter{
+             margin-left: 20px;
+        }
+        .search-button{
+            margin-left: 10px;
+        }
+        .section-header {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+            // margin-top: $dmargin*4 !important;
+            margin-bottom: $dmargin*4 !important;
+            h2 {
+                @include font-size(20px);
+                font-family: $primary-font;
+                color: rgba(#4d4f5c, 1);
+                font-weight: bold;
+                text-align: left;
+                line-height: 1.7;
+            }
+            button{
+                background-color:#009688;
+            }
+            .css-sghohy-MuiButtonBase-root-MuiButton-root{
+                background-color: #009688 !important;
+            }
+        }
+    // }
+
+    .section-content {
+        // @include flexbox();
+        // @include flex-direction(row);
+        // @include justify-content(space-between);
+        margin-bottom: $dmargin*4;
+        h2 {
+            @include font-size(20px);
+            font-family: $primary-font;
+            color: rgba(#4d4f5c, 1);
+            font-weight: bold;
+            text-align: left;
+            line-height: 1.7;
+            // margin-bottom: $dmargin*4;
+            // padding: $dpadding*3;
+        }
+        
+    }
+}
+
+.MuiDataGrid-footerContainer{
+    display: none !important
+}

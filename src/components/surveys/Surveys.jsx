@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Surveys() {
     const [newSurvey,setnewSurvey] = useState(false);
     const [editSurveyStatus,seteditSurveyStatus] = useState(false);
-    const urlBase = 'https://y97ci5zkbh.execute-api.us-east-1.amazonaws.com/Prod/';
+    const urlBase = process.env.REACT_APP_BASE_URL;
     let companyData = {companyname:'PlacePay',companycode:'PPAY'};
     if(localStorage.companyDetails){
          companyData = JSON.parse(localStorage.companyDetails);
@@ -19,7 +19,8 @@ function Surveys() {
         "welcomeMessage": 'Thank you for taking the time to complete the survey. We value your opinion.”',
         "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know',  
         "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
-        "canUpdate":true
+        "canUpdate":true,
+        "companyCode":''
     });
     const showSurveyForm = () =>{ 
         setnewSurvey(true);
@@ -33,12 +34,17 @@ function Surveys() {
             "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
  
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
-            "canUpdate":true
+            "canUpdate":true,
+            "companyCode":''
         })
     }
     const [surveyData, setSurveyData] = useState('');
     const [surveyId, setSurveyId] = useState('');
-    const url = `${urlBase}getAllSurveyData?companyCode=${companyData.companycode}`;
+    let qParam = ''
+    if(companyData.companycode !== ''){
+        qParam = `?companyCode=${companyData.companycode}`;
+    }
+    const url = `${urlBase}getAllSurveyData${qParam}`;
     const fetchData = async () => {
         try {
             const response = await fetch(url);
@@ -80,7 +86,8 @@ function Surveys() {
             "closingMessage": 'Thank you for your feedback. Your feedback helps us continuesly improve our services for you. If you have other ideas or anything else you need please let us know.', 
  
             "Questions":[{ questionNo:1,question: "How did we do?", questionType : "CSAT",minScale:1,maxScale:5}],
-            "canUpdate":true
+            "canUpdate":true,
+            "companyCode":''
         })
         //fetchData();
     }
@@ -152,7 +159,8 @@ function Surveys() {
                     "welcomeMessage": data.welcomeMessage, 
                     "closingMessage": data.closingMessage, 
                     "Questions":data.Questions,
-                    "canUpdate":canUpdate
+                    "canUpdate":canUpdate,
+                    "companyCode":data.companyCode
                 });
                 console.log(formData);
                 showSurveyForm();

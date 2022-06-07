@@ -147,8 +147,8 @@ const NewSurvey = (props) => {
       delete formValues["canUpdate"];
       if (companyData) {
         formValues.companyName = companyData.companyname;
-        formValues.companyCode = companyData.companycode;
       }
+      formValues.companyCode = comapnyCode;
       props.onAdd(JSON.stringify(formValues));
     }
   };
@@ -235,12 +235,19 @@ const NewSurvey = (props) => {
       };
     });
   };
-
-  const [age, setAge] = React.useState('');
-
-  const paySelector = (event) => {
-    setAge(event.target.value);
-  };
+  
+  const [comapnyCode,setCompanyCode] = React.useState(formValues.companyCode!==''?formValues.companyCode:'PPAY');
+  // const companySelector = (event) => {
+  //   console.log(event.target.value);
+  //   setCompanyCode(event.target.value);
+  // };
+  // const companyArray = [
+  //   {"companyname":'PlacePay',"companycode":"PPAY"},
+  //   {"companyname":'PaySchools Central',"companycode":"PSCH"},
+  //   {"companyname":'SchoolPay',"companycode":"SPAY"},
+  //   {"companyname":'MerchantServices',"companycode":"MCHS"},
+  //   {"companyname":'TechnicalHelp',"companycode":"TEHP"}
+  // ]
 
   return (
     <form onSubmit={submitNewSurvey}>
@@ -250,7 +257,7 @@ const NewSurvey = (props) => {
         </button>
         {props.editStatus ? <h2>Edit Survey</h2> : <h2>New Survey</h2>}
 
-        {validationStatus && (
+        {/* {validationStatus && (
           <Button
             disabled={!validationStatus}
             type="submit"
@@ -262,7 +269,7 @@ const NewSurvey = (props) => {
           >
             Save
           </Button>
-        )}
+        )} */}
       </div>
       <div className="section-content survey-name">
         <Card component="form" noValidate autoComplete="off">
@@ -282,24 +289,24 @@ const NewSurvey = (props) => {
             <span className="text-danger">{validation.surveyNameError}</span>
           
           </div>
-          <div className="form-field-group company-select">
+          {/* <div className="form-field-group company-select">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <label id="demo-simple-select-label">Select Company</label>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={comapnyCode}
                     label="Age"
-                    onChange={paySelector}
+                    onChange={companySelector}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {companyArray.map((company,index) =>{
+                      return <MenuItem value={company.companycode} key={index}>{company.companyname}</MenuItem>
+                    })}
                   </Select>
                 </FormControl>
               </Box>
-            </div>
+            </div> */}
             </CardContent>
         </Card>
       </div>
@@ -504,6 +511,13 @@ const NewSurvey = (props) => {
       </div>
       {validationStatus && (
         <div className="section-footer">
+          <Button
+            className='cancel-button'
+            variant="contained"
+            onClick={props.onBackClick}
+          >
+            Cancel
+          </Button>
           <Button
             variant="contained"
             onClick={submitNewSurvey}

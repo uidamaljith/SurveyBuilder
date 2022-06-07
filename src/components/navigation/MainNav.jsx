@@ -30,6 +30,14 @@ function MainNav() {
   const [modalBackDrop, setModalBackDrop] = React.useState(false);
   const [company, setCompany] = React.useState("Select Company");
   const [open, setOpen] = React.useState(false);
+  const companyArray = [
+    {"companyname":'All',"companycode":""},
+    {"companyname":'PlacePay',"companycode":"PPAY"},
+    {"companyname":'PaySchools Central',"companycode":"PSCH"},
+    {"companyname":'SchoolPay',"companycode":"SPAY"},
+    {"companyname":'MerchantServices',"companycode":"MCHS"},
+    {"companyname":'TechnicalHelp',"companycode":"TEHP"}
+  ]
   useEffect(() => {
     if (!localStorage.companyDetails) {
       handleOpen();
@@ -80,9 +88,14 @@ function MainNav() {
           </li>
           <li>
             {/* <Link to="/Surveys">Surveys</Link> */}
-            <NavLink to="/Surveys" activeClassName="selected">
-              Surveys
-            </NavLink>
+          {company!=='All' && <NavLink to="/Surveys" activeClassName="selected">
+            Surveys
+          </NavLink>}
+          </li>
+          <li>
+          {company ==='All' && <NavLink to="/Surveyhistory" activeClassName="selected">
+            Survey History
+          </NavLink>}
           </li>
           {/* <li>
             <NavLink  to="/AgentRating" activeClassName="selected">
@@ -106,54 +119,20 @@ function MainNav() {
             </h1>
             <Typography>Select Company</Typography>
             <div className="sc-card-container">
-              <Card noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "AllPay", "PALL")}
-                >
-                  All
-                </Button>
-              </Card>
-              <Card noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "PlacePay", "PPAY")}
-                >
-                  PlacePay
-                </Button>
-              </Card>
-              <Card component="form" noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "PaySchools Central", "PSCH")}
-                >
-                  PaySchools Central
-                </Button>
-              </Card>
-              <Card component="form" noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "SchoolPay", "SPAY")}
-                >
-                  SchoolPay
-                </Button>
-              </Card>
-              <Card component="form" noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "MerchantServices", "MCHS")}
-                >
-                  MerchantServices
-                </Button>
-              </Card>
-              <Card component="form" noValidate autoComplete="off">
-                <Button
-                  className="select-company"
-                  onClick={(e) => choseCompany(e, "TechnicalHelp", "TEHP")}
-                >
-                  TechnicalHelp
-                </Button>
-              </Card>
+              {
+                companyArray.map((company,index) => {
+                 return  <Card noValidate autoComplete="off" key={index}>
+                      <Button
+                        className="select-company"
+                        onClick={(e) => choseCompany(e, company.companyname, company.companycode)}
+                      >
+                        {company.companyname}
+                      </Button>
+                  </Card>
+                })
+              }
+             
+             
             </div>
           </Box>
         </Modal>
